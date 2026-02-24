@@ -56,3 +56,18 @@ The wordmark pattern: `[` (gold, weight 300) + `arif` (white/#1a1a1a, weight 500
 - **Hero bars:** CSS `@keyframes` on `<line>` elements using `transform-origin: center center` + `transform-box: fill-box`
 - **Scroll fade-ins:** `.fade-in` class starts `opacity: 0; transform: translateY(28px)`. JS `IntersectionObserver` adds `.visible` when element enters viewport. Hero elements are triggered on `window load` with staggered `setTimeout` instead.
 - **Stagger delays:** `.fade-in-delay-1/2/3/4` add `transition-delay` for sibling elements in a group.
+
+## Deployment
+
+- **Repo:** `https://github.com/arifin-arifaisolutions/arif-ai-solutions` (branch: `main`)
+- **Target domain:** `arifaisolutions.com`
+- **Host:** Vercel (GitHub account: `arifin-arifaisolutions`) — static HTML, no build step, no `vercel.json` needed
+- **DNS (at registrar):** `A @ 76.76.21.21` + `CNAME www cname.vercel-dns.com`
+
+### What's done
+- SEO meta description, canonical URL, Open Graph tags, Twitter Card tags, and SVG favicon added to `<head>` (commit `dadafaf`)
+
+### What's pending
+- Connect `arif-ai-solutions` repo to Vercel via dashboard (import → deploy)
+- Add `arifaisolutions.com` and `www.arifaisolutions.com` in Vercel → Settings → Domains
+- Set DNS records at registrar
