@@ -716,61 +716,60 @@ body.cursor-ready .pillar { cursor: none; }
   gap: 80px;
   align-items: center;
 }
-.about-logo-side {
+
+/* — Photo column — */
+.about-photo-side {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
 }
-.about-wordmark-large {
-  font-size: clamp(56px, 8vw, 96px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: var(--text-dark);
-  position: relative;
+.about-photo-frame {
+  width: 100%;
+  max-width: 360px;
+  border-left: 3px solid var(--gold);
+  overflow: hidden;
 }
-.about-wordmark-large .gold { color: var(--gold); }
-.about-wordmark-large .subtle {
+.about-photo {
+  width: 100%;
+  height: auto;
   display: block;
-  font-size: clamp(14px, 2vw, 20px);
-  font-weight: 300;
-  letter-spacing: 0.22em;
+}
+.about-founder-info {
+  padding-left: 4px;
+}
+.about-founder-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.about-founder-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--muted-cream);
-  margin-top: 12px;
-}
-
-.about-logo-side { position: relative; }
-.about-logo-side::before {
-  content: '';
-  position: absolute;
-  width: 280px; height: 280px;
-  border: 1px solid rgba(200,168,0,0.08);
-  border-radius: 50%;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.about-meaning-arabic {
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 300;
   color: var(--gold);
-  opacity: 0.6;
-  margin-top: 8px;
-  direction: rtl;
-  letter-spacing: 0.05em;
+  margin-bottom: 14px;
 }
-.about-meaning-rule {
-  width: 40px; height: 1px;
-  background: var(--gold); opacity: 0.3;
-  margin: 16px 0;
+.about-creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.about-meaning-label {
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); opacity: 0.7;
+.about-cred-pill {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  border: 1px solid rgba(26,26,26,0.22);
+  border-radius: 100px;
+  padding: 4px 12px;
 }
 
+/* — Text column — */
 .about-right {}
 .about-tag {
   font-size: 12px;
@@ -784,9 +783,17 @@ body.cursor-ready .pillar { cursor: none; }
   font-size: clamp(26px, 3.5vw, 36px);
   font-weight: 700;
   color: var(--text-dark);
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   letter-spacing: -0.02em;
   line-height: 1.2;
+}
+.about-subheading {
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-bottom: 28px;
 }
 .about-text {
   font-size: 16px;
@@ -799,13 +806,17 @@ body.cursor-ready .pillar { cursor: none; }
   color: var(--text-dark);
   font-weight: 500;
 }
+.about-text strong {
+  font-weight: 700;
+  color: var(--text-dark);
+}
 
 @media (max-width: 767px) {
   .about-inner {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .about-logo-side { justify-content: flex-start; }
+  .about-photo-frame { max-width: 100%; }
 }
 
 /* ══════════════════════════════════════
@@ -1430,23 +1441,33 @@ body.cursor-ready .pillar { cursor: none; }
   <div class="container">
     <div class="about-inner">
 
-      <div class="about-logo-side fade-in">
-        <div class="about-wordmark-large">
-          <span class="gold">[</span>arif<span class="gold">AI</span><span class="gold">]</span>
-          <span class="subtle">solutions</span>
+      <div class="about-photo-side fade-in">
+        <div class="about-photo-frame">
+          <img src="founder.png" alt="Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions" class="about-photo">
         </div>
-        <div class="about-meaning-arabic">أَرِيف</div>
-        <div class="about-meaning-rule"></div>
-        <div class="about-meaning-label">wise &middot; حكيم</div>
+        <div class="about-founder-info">
+          <div class="about-founder-name">Qamarul Arifin bin Abd Manan</div>
+          <div class="about-founder-title">Founder &amp; Principal Consultant</div>
+          <div class="about-creds">
+            <span class="about-cred-pill">PETRONAS</span>
+            <span class="about-cred-pill">ExxonMobil</span>
+            <span class="about-cred-pill">13 yrs Data Science</span>
+          </div>
+        </div>
       </div>
 
       <div class="about-right fade-in fade-in-delay-1">
         <p class="about-tag">About Us</p>
-        <h2 class="about-heading">Built on wisdom.<br>Delivered with care.</h2>
+        <h2 class="about-heading">Enterprise expertise,<br>built for everyone.</h2>
+        <p class="about-subheading">Built on wisdom. Delivered with care.</p>
         <p class="about-text">
-          The name <em>arif (أَرِيف)</em> means <em>wise</em> in Bahasa Malaysia and Arabic. We believe AI should work with wisdom — purposeful, thoughtful, and human-centred.
+          <em>arif</em> is personal — it's a piece of my name, Arifin. But it also means <em>wise</em> in Bahasa Malaysia and Arabic. That double meaning captures exactly what I'm here to build.
           <br><br>
-          We're a small, expert team that builds solutions with real business impact for real people. No off-the-shelf templates, no bloated enterprise packages. Just honest, capable work that helps your business move forward.
+          I spent 13 years as a data scientist and optimisation specialist at PETRONAS and ExxonMobil — building AI-powered systems that global energy companies run on. High-stakes, complex, and genuinely impactful work at scale.
+          <br><br>
+          What I kept seeing was the gap. The same capability optimising billion-dollar operations wasn't reaching the business owner down the street — the F&amp;B entrepreneur, the logistics SME, the independent professional who could transform their business with the right AI, but had no way in.
+          <br><br>
+          <strong>arifAI Solutions exists to close that gap.</strong> Enterprise-grade thinking, without the enterprise price tag or complexity — for businesses in Melaka, across Malaysia, and beyond.
         </p>
       </div>
 
