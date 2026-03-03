@@ -86,9 +86,16 @@ Uses Formspree for submission. Form action: `https://formspree.io/f/REPLACE_WITH
 
 AJAX handler prevents page redirect, shows inline `.form-success` on success, restores button on error. Fields use the floating label pattern: `.form-field` wraps `<input placeholder=" ">` + `<label>`, floated via `:placeholder-shown`.
 
-## Testimonials Section
+## Track Record Section
 
-Three placeholder cards in a 3-col grid (collapses to 1-col at 900px). All quotes marked `<!-- PLACEHOLDER -->` — replace with real testimonials before launch. Section background is `#111111` (slightly lighter than `--dark`) with grain texture overlay.
+Replaces the testimonials section. Three stat blocks in a 3-col grid (collapses to 1-col at 900px), separated by gold hairline borders (`rgba(200,168,0,0.12)`). Section background is `#111111` with grain texture overlay.
+
+Each `.result-stat` has:
+- `.result-number` — large gold stat (`$60M+`, `10+`, `13 yrs`)
+- `.result-desc` — supporting context copy
+- `.result-source` — gold uppercase attribution (e.g. `ExxonMobil · Data Scientist`)
+
+Footer note `.results-note` — italic, centred, muted. Numbers sourced directly from CV: $50M inventory + $10M sales channel optimisation at ExxonMobil. When real client testimonials are available, this section can be replaced or supplemented.
 
 ## About Section
 

@@ -1025,7 +1025,7 @@ body.cursor-ready .pillar { cursor: none; }
 }
 
 /* ══════════════════════════════════════
-   TESTIMONIALS
+   TRACK RECORD
 ══════════════════════════════════════ */
 #testimonials {
   background: #111111;
@@ -1034,80 +1034,73 @@ body.cursor-ready .pillar { cursor: none; }
 }
 #testimonials .section-heading { color: var(--white); }
 
-.testimonials-grid {
+.results-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  margin-top: 64px;
+  border-top: 1px solid rgba(200,168,0,0.12);
 }
-.testimonial-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(200,168,0,0.1);
-  border-radius: 8px;
-  padding: 32px;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.25s;
+.result-stat {
+  padding: 48px 40px;
+  border-right: 1px solid rgba(200,168,0,0.12);
   position: relative;
   overflow: hidden;
+  transition: background 0.3s;
 }
-/* Shimmer sweep on hover — reusing the same pattern */
-.testimonial-card::after {
+.result-stat:last-child { border-right: none; }
+.result-stat::after {
   content: '';
   position: absolute;
   top: 0; left: -100%;
   width: 55%; height: 100%;
-  background: linear-gradient(105deg, transparent 0%, rgba(200,168,0,0.05) 50%, transparent 100%);
+  background: linear-gradient(105deg, transparent 0%, rgba(200,168,0,0.04) 50%, transparent 100%);
   transform: skewX(-15deg);
   transition: left 0.55s ease;
   pointer-events: none;
 }
-.testimonial-card:hover::after { left: 160%; }
-.testimonial-card:hover {
-  border-color: rgba(200,168,0,0.35);
-  box-shadow: 0 4px 32px rgba(200,168,0,0.08);
-  transform: translateY(-3px);
-}
-.testimonial-quote-mark {
-  font-size: 56px;
+.result-stat:hover::after { left: 160%; }
+.result-stat:hover { background: rgba(200,168,0,0.03); }
+.result-number {
+  font-size: clamp(52px, 6vw, 76px);
   font-weight: 700;
   color: var(--gold);
-  line-height: 0.8;
-  margin-bottom: 16px;
-  display: block;
-  font-family: Georgia, serif;
-}
-.testimonial-body {
-  font-size: 15px;
-  color: var(--muted-cream);
-  line-height: 1.75;
-  margin-bottom: 24px;
-  font-style: italic;
-}
-.testimonial-divider {
-  width: 32px; height: 1px;
-  background: rgba(200,168,0,0.3);
+  letter-spacing: -0.03em;
+  line-height: 1;
   margin-bottom: 20px;
 }
-.testimonial-author-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 2px;
+.result-desc {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(244,241,232,0.65);
+  line-height: 1.65;
+  margin-bottom: 20px;
 }
-.testimonial-author-role {
-  font-size: 13px;
-  color: var(--muted-light);
-  margin-bottom: 14px;
+.result-source {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
 }
-.testimonial-stars {
-  display: flex;
-  gap: 4px;
-}
-.testimonial-stars svg {
-  width: 13px; height: 13px;
-  fill: var(--gold);
+.results-note {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(244,241,232,0.35);
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 900px) {
-  .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+  .results-grid { grid-template-columns: 1fr; }
+  .result-stat {
+    border-right: none;
+    border-bottom: 1px solid rgba(200,168,0,0.12);
+    padding: 40px 24px;
+  }
+  .result-stat:last-child { border-bottom: none; }
 }
 
 /* ══════════════════════════════════════
@@ -1523,64 +1516,39 @@ body.cursor-ready .pillar { cursor: none; }
 <!-- ══════════════════════════════════════
      TESTIMONIALS
 ══════════════════════════════════════ -->
-<!-- REPLACE placeholder quotes with real testimonials before launch -->
+<!-- ══════════════════════════════════════
+     TRACK RECORD
+══════════════════════════════════════ -->
 <section id="testimonials" class="section-pad">
   <div class="grain" aria-hidden="true"></div>
   <div class="container" style="position:relative;z-index:1;">
-    <p class="section-label fade-in">Social Proof</p>
-    <h2 class="section-heading fade-in fade-in-delay-1">Trusted by business owners<br>across the region.</h2>
+    <p class="section-label fade-in">Track Record</p>
+    <h2 class="section-heading fade-in fade-in-delay-1">Enterprise-grade results.<br>Now within your reach.</h2>
 
-    <div class="testimonials-grid">
+    <div class="results-grid">
 
-      <div class="testimonial-card fade-in">
-        <span class="testimonial-quote-mark">&ldquo;</span>
-        <!-- PLACEHOLDER -->
-        <p class="testimonial-body">[Client quote placeholder — describe how arifAI transformed their workflow or saved time.]</p>
-        <div class="testimonial-divider"></div>
-        <div class="testimonial-author-name">Jane Doe</div>
-        <div class="testimonial-author-role">Operations Manager, Acme Corp</div>
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
+      <div class="result-stat fade-in">
+        <div class="result-number">$60M+</div>
+        <div class="result-desc">Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.</div>
+        <div class="result-source">ExxonMobil &nbsp;·&nbsp; Data Scientist</div>
       </div>
 
-      <div class="testimonial-card fade-in fade-in-delay-1">
-        <span class="testimonial-quote-mark">&ldquo;</span>
-        <!-- PLACEHOLDER -->
-        <p class="testimonial-body">[Client quote placeholder — highlight the custom fit and communication quality.]</p>
-        <div class="testimonial-divider"></div>
-        <div class="testimonial-author-name">Ahmad R.</div>
-        <div class="testimonial-author-role">Founder, Example Sdn Bhd</div>
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
+      <div class="result-stat fade-in fade-in-delay-1">
+        <div class="result-number">10+</div>
+        <div class="result-desc">Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.</div>
+        <div class="result-source">ExxonMobil &nbsp;·&nbsp; Global Operations</div>
       </div>
 
-      <div class="testimonial-card fade-in fade-in-delay-2">
-        <span class="testimonial-quote-mark">&ldquo;</span>
-        <!-- PLACEHOLDER -->
-        <p class="testimonial-body">[Client quote placeholder — speak to business impact or ROI.]</p>
-        <div class="testimonial-divider"></div>
-        <div class="testimonial-author-name">Sarah L.</div>
-        <div class="testimonial-author-role">Director, Sample Co</div>
-        <div class="testimonial-stars">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
+      <div class="result-stat fade-in fade-in-delay-2">
+        <div class="result-number">13 yrs</div>
+        <div class="result-desc">From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.</div>
+        <div class="result-source">PETRONAS &nbsp;·&nbsp; ExxonMobil &nbsp;·&nbsp; AFED Digital</div>
       </div>
 
     </div>
+
+    <p class="results-note fade-in">The same rigour that moved the needle for billion-dollar operations — now applied to yours.</p>
+
   </div>
 </section>
 
