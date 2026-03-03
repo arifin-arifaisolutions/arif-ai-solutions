@@ -32,11 +32,13 @@ All CSS is in a `<style>` block at the top of `<head>`. All JS is in a `<script>
 1. CSS custom properties (`:root`) — all brand tokens defined here
 2. Section styles in the same top-to-bottom order as the HTML sections
 3. `@media (max-width: 767px)` breakpoints co-located with their section styles
-4. HTML sections: Navbar → Hero → Services → Marquee → How We Work → About → Why Choose Us → Testimonials → Contact → Footer
+4. HTML sections: Navbar → Hero → Services → Marquee → How We Work → About → Why Choose Us → Track Record → Contact → Footer
 5. JS: feature detection → hero load animation → scroll observer → scroll handler → contact form AJAX → hamburger → cursor → 3D tilt → magnetic buttons
 
 Section backgrounds alternate dark/cream:
-- Hero `#0a0a0a` → Services `#f4f1e8` → Marquee gold → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Testimonials `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
+- Hero `#0a0a0a` → Services `#f4f1e8` → Marquee gold → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Track Record `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
+
+**Assets at project root:** `founder.png` — founder photo used in the About section.
 
 ## Brand Tokens (do not deviate)
 
@@ -54,6 +56,19 @@ The logo mark is an inline SVG: `viewBox="0 0 96 96"`, gold circle outline + 5 v
 
 The wordmark pattern: `[` (gold, weight 300) + `arif` (white/#1a1a1a, weight 500) + `AI` (gold, weight 700) + `]` (gold, weight 300), with `solutions` in small uppercase spaced tracking below.
 
+## CSS Keyframe Namespacing
+
+Two animation systems exist — keep their namespaces separate:
+
+| Prefix | Used for |
+|---|---|
+| `barBreath1`–`barBreath5` | Hero logo bar pulse |
+| `scrollCueFade`, `scrollBounce` | Hero scroll cue |
+| `marqueeScroll` | Marquee ticker |
+| `ill*` (`illBar1–4`, `illLineTrace`, `illDotPulse`, `illSignalMove`, `illTypeDot`) | Service card background illustrations |
+
+Never reuse names across these groups.
+
 ## Animations
 
 - **Hero bars:** CSS `@keyframes` on `<line>` elements using `transform-origin: center center` + `transform-box: fill-box`
@@ -67,7 +82,7 @@ All motion gates on:
 const IS_TOUCH   = window.matchMedia('(hover: none)').matches;
 const IS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 ```
-`@media (prefers-reduced-motion: reduce)` sets all durations to `0.01ms`.
+`@media (prefers-reduced-motion: reduce)` sets all durations to `0.01ms` — this automatically disables all CSS animations including card illustrations.
 
 ## JavaScript Features
 
@@ -80,37 +95,44 @@ const IS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 - **3D card tilt:** `.service-card` rotates ±14deg on mousemove — desktop only
 - **Magnetic buttons:** `.btn-primary` / `.btn-secondary` translate 25% of cursor offset — desktop only
 
-## Contact Form
+## Service Cards
 
-Uses Formspree for submission. Form action: `https://formspree.io/f/REPLACE_WITH_YOUR_ID` (placeholder — must be replaced with real Formspree form ID).
+Four cards in a 4-col grid (→ 2-col at 900px → 1-col at 767px). Each `.service-card` has:
+- A 40×40 inline SVG icon (`.service-icon`)
+- A `.service-card-illustration` div — absolutely positioned bottom-right, `140×120px`, `z-index: 0`, `pointer-events: none`. Contains an inline SVG with CSS animations unique to each card:
 
-AJAX handler prevents page redirect, shows inline `.form-success` on success, restores button on error. Fields use the floating label pattern: `.form-field` wraps `<input placeholder=" ">` + `<label>`, floated via `:placeholder-shown`.
+| Card | Illustration | Animation keyframes |
+|---|---|---|
+| Custom AI Apps | Browser + 4 bar columns | `illBar1–4` (scaleY breathe, `transform-box: fill-box`) |
+| AI Consulting | Axes + rising line chart | `illLineTrace` (stroke-dashoffset draw) + `illDotPulse` (endpoint pulse) |
+| Automation & Integration | 4-node diamond with connectors | `illSignalMove` (stroke-dashoffset dot travel, `stroke-dasharray: 7 57`) |
+| AI Agents & Chatbots | Chat bubbles + typing indicator | `illTypeDot` (translateY bounce, staggered) |
 
-## Track Record Section
-
-Replaces the testimonials section. Three stat blocks in a 3-col grid (collapses to 1-col at 900px), separated by gold hairline borders (`rgba(200,168,0,0.12)`). Section background is `#111111` with grain texture overlay.
-
-Each `.result-stat` has:
-- `.result-number` — large gold stat (`$60M+`, `10+`, `13 yrs`)
-- `.result-desc` — supporting context copy
-- `.result-source` — gold uppercase attribution (e.g. `ExxonMobil · Data Scientist`)
-
-Footer note `.results-note` — italic, centred, muted. Numbers sourced directly from CV: $50M inventory + $10M sales channel optimisation at ExxonMobil. When real client testimonials are available, this section can be replaced or supplemented.
+The illustration is masked via `mask-image: linear-gradient(to top left, black 0%, transparent 68%)` — visible at bottom-right, dissolves toward top-left. Opacity: `0.1` idle → `0.25` on `.service-card:hover`.
 
 ## About Section
 
-Two-column layout. Left column (`.about-photo-side`) displays:
-1. Founder photo (`founder.png`) in `.about-photo-frame` — gold left-border accent (3px `--gold`)
-2. Founder name (`.about-founder-name`) + title (`.about-founder-title`, gold uppercase)
+Two-column layout. Left column (`.about-photo-side`):
+1. `founder.png` in `.about-photo-frame` — gold `3px` left-border accent
+2. Founder name + title (`.about-founder-title`, gold uppercase)
 3. Credential pills (`.about-cred-pill`) — PETRONAS · ExxonMobil · 13 yrs Data Science
 
-Right column (`.about-right`) displays:
-1. "About Us" tag (`.about-tag`)
-2. Primary `h2` (`.about-heading`): "Enterprise expertise, built for everyone."
-3. Subheading (`p.about-subheading`): "Built on wisdom. Delivered with care." — italic, gold, weight 300
-4. Body copy (`.about-text`) — founder origin story; uses `<em>` for name/Arabic highlights, `<strong>` for mission statement
+Right column (`.about-right`):
+1. Tag → primary `h2` (`.about-heading`): "Enterprise expertise, built for everyone."
+2. Subheading (`p.about-subheading`): "Built on wisdom. Delivered with care." — italic, gold, weight 300
+3. Body copy (`.about-text`) — uses `<em>` for name/Arabic highlights, `<strong>` for mission close
 
-**Assets:** `founder.png` — Qamarul Arifin bin Abd Manan, founder photo. Lives at project root alongside `index.html`.
+## Track Record Section
+
+HTML `id="testimonials"` is intentionally kept (section not in nav, but preserves any existing anchors). Three `.result-stat` blocks in a 3-col grid (→ 1-col at 900px), separated by gold hairline borders. Background `#111111` with grain texture.
+
+Each stat: `.result-number` (large gold figure) → `.result-desc` → `.result-source` (gold uppercase, `opacity: 0.5`). Footer `.results-note` is italic, centred, muted. Numbers sourced from founder CV: $50M + $10M at ExxonMobil = $60M+. Replace with real client testimonials when available.
+
+## Contact Form
+
+Formspree AJAX submission. **Pending:** replace `REPLACE_WITH_YOUR_ID` in the form `action` URL with the real Formspree form ID before going live.
+
+Floating label pattern: `.form-field` wraps `<input placeholder=" ">` + `<label>`, floated via `:placeholder-shown`. Success state: inline `.form-success` shown on 200 response; button restored on error.
 
 ## Deployment
 
@@ -118,3 +140,9 @@ Right column (`.about-right`) displays:
 - **Host:** Vercel (GitHub account: `arifin-arifaisolutions`) — auto-deploys on push to `main`, no build step, no `vercel.json` needed
 - **Target domain:** `arifaisolutions.com`
 - **DNS (at registrar):** `A @ 76.76.21.21` + `CNAME www cname.vercel-dns.com`
+
+## Pending Before Launch
+
+- [ ] Replace Formspree form ID in contact form `action` attribute
+- [ ] Verify custom domain is active on Vercel dashboard
+- [ ] Replace Track Record section with real client testimonials when available
