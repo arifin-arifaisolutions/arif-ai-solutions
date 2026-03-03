@@ -240,6 +240,24 @@ body {
   display: block;
 }
 
+/* ── Language toggle ── */
+.lang-toggle { display: flex; align-items: center; gap: 4px; }
+.lang-sep { color: rgba(200,168,0,0.4); font-size: 12px; user-select: none; }
+.lang-btn {
+  background: none; border: none; padding: 4px 6px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5); cursor: pointer;
+  border-radius: 3px; transition: color 0.2s, background 0.2s; line-height: 1;
+}
+.lang-btn:hover { color: #fff; }
+.lang-btn--active { color: var(--gold); background: rgba(200,168,0,0.1); }
+.lang-toggle--mobile { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.lang-toggle--mobile .lang-btn { font-size: 13px; padding: 6px 8px; }
+
+@media (max-width: 767px) { #langToggle { display: none; } }
+@media (min-width: 768px) { #langToggleMobile { display: none; } }
+
 @media (max-width: 767px) {
   .nav-links, .btn-nav { display: none; }
   .hamburger { display: flex; }
@@ -1285,12 +1303,17 @@ body.cursor-ready .pillar { cursor: none; }
     </a>
 
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#how-we-work">How We Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#how-we-work" data-i18n="nav.howwework">How We Work</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="btn-nav">Let's Talk</a>
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button class="lang-btn lang-btn--active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button class="lang-btn" data-lang="ms" aria-pressed="false">BM</button>
+    </div>
+    <a href="#contact" class="btn-nav" data-i18n="nav.cta">Let's Talk</a>
 
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span>
@@ -1300,11 +1323,16 @@ body.cursor-ready .pillar { cursor: none; }
   </div>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#services" class="mobile-link">Services</a>
-    <a href="#how-we-work" class="mobile-link">How We Work</a>
-    <a href="#about" class="mobile-link">About</a>
-    <a href="#contact" class="mobile-link">Contact</a>
-    <a href="#contact" class="btn-nav">Let's Talk</a>
+    <a href="#services" class="mobile-link" data-i18n="nav.services">Services</a>
+    <a href="#how-we-work" class="mobile-link" data-i18n="nav.howwework">How We Work</a>
+    <a href="#about" class="mobile-link" data-i18n="nav.about">About</a>
+    <a href="#contact" class="mobile-link" data-i18n="nav.contact">Contact</a>
+    <div class="lang-toggle lang-toggle--mobile" id="langToggleMobile" role="group" aria-label="Language">
+      <button class="lang-btn lang-btn--active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button class="lang-btn" data-lang="ms" aria-pressed="false">BM</button>
+    </div>
+    <a href="#contact" class="btn-nav" data-i18n="nav.cta">Let's Talk</a>
   </div>
 </nav>
 
@@ -1330,7 +1358,7 @@ body.cursor-ready .pillar { cursor: none; }
       </svg>
     </div>
 
-    <h1 class="hero-headline" aria-label="Wise AI. Built for Your Business.">
+    <h1 class="hero-headline" data-i18n-headline="hero.headline" data-i18n-attr-label="hero.headline.aria" aria-label="Wise AI. Built for Your Business.">
       <span class="hero-word" style="--wd:0s"><em>Wise</em></span>
       <span class="hero-word" style="--wd:0.08s"><em>AI.</em></span>
       <span class="hero-word" style="--wd:0.16s">Built</span>
@@ -1339,14 +1367,14 @@ body.cursor-ready .pillar { cursor: none; }
       <span class="hero-word" style="--wd:0.40s">Business.</span>
     </h1>
 
-    <p class="hero-sub fade-in" style="transition-delay:1.0s">
+    <p class="hero-sub fade-in" style="transition-delay:1.0s" data-i18n="hero.sub">
       arifAI Solutions builds custom AI applications, automations, and intelligent agents — tailored to how your business actually works.
     </p>
 
     <div class="hero-ctas fade-in" style="transition-delay:1.15s">
-      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#contact" class="btn-primary" data-i18n="hero.cta.primary">Start a Project</a>
       <a href="#services" class="btn-secondary">
-        See Our Services
+        <span data-i18n="hero.cta.secondary">See Our Services</span>
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -1355,7 +1383,7 @@ body.cursor-ready .pillar { cursor: none; }
   </div>
 
   <div class="hero-scroll" aria-hidden="true">
-    <span class="hero-scroll-label">Scroll</span>
+    <span class="hero-scroll-label" data-i18n="hero.scroll">Scroll</span>
     <div class="hero-scroll-chevron">
       <svg viewBox="0 0 16 10" fill="none">
         <path d="M1 1l7 7 7-7" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1370,8 +1398,8 @@ body.cursor-ready .pillar { cursor: none; }
 ══════════════════════════════════════ -->
 <section id="services" class="section-pad">
   <div class="container">
-    <p class="section-label fade-in">What We Do</p>
-    <h2 class="section-heading fade-in fade-in-delay-1">AI that fits your world —<br>not the other way around.</h2>
+    <p class="section-label fade-in" data-i18n="services.label">What We Do</p>
+    <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="services.heading">AI that fits your world —<br>not the other way around.</h2>
 
     <div class="services-grid">
 
@@ -1385,8 +1413,8 @@ body.cursor-ready .pillar { cursor: none; }
           <rect x="10" y="19" width="20" height="3" rx="1.5" fill="#c8a800" opacity="0.4"/>
           <rect x="10" y="25" width="14" height="3" rx="1.5" fill="#c8a800" opacity="0.4"/>
         </svg>
-        <div class="service-name">Custom AI Apps</div>
-        <div class="service-desc">Bespoke applications built around your workflow — not generic tools retrofitted to your needs.</div>
+        <div class="service-name" data-i18n="services.card1.name">Custom AI Apps</div>
+        <div class="service-desc" data-i18n="services.card1.desc">Bespoke applications built around your workflow — not generic tools retrofitted to your needs.</div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="3" width="134" height="114" rx="6" stroke="#c8a800" stroke-width="1.5"/>
@@ -1412,8 +1440,8 @@ body.cursor-ready .pillar { cursor: none; }
           <line x1="29" y1="20" x2="34" y2="20" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round"/>
           <line x1="20" y1="20" x2="28" y2="13" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        <div class="service-name">AI Consulting</div>
-        <div class="service-desc">Strategy and roadmapping for businesses ready to adopt AI purposefully, with a clear path forward.</div>
+        <div class="service-name" data-i18n="services.card2.name">AI Consulting</div>
+        <div class="service-desc" data-i18n="services.card2.desc">Strategy and roadmapping for businesses ready to adopt AI purposefully, with a clear path forward.</div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="15" y1="8" x2="15" y2="104" stroke="#c8a800" stroke-width="1"/>
@@ -1438,8 +1466,8 @@ body.cursor-ready .pillar { cursor: none; }
           <circle cx="20" cy="20" r="2" fill="#c8a800"/>
           <path d="M10 9v6M10 25v6M30 9v6M30 25v6" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
         </svg>
-        <div class="service-name">Automation &amp; Integration</div>
-        <div class="service-desc">Connect AI to your existing tools and processes — seamless, reliable, and built to scale with you.</div>
+        <div class="service-name" data-i18n="services.card3.name">Automation &amp; Integration</div>
+        <div class="service-desc" data-i18n="services.card3.desc">Connect AI to your existing tools and processes — seamless, reliable, and built to scale with you.</div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line class="ill-base-line" x1="15" y1="60" x2="70" y2="25" stroke="#c8a800" stroke-width="1.5"/>
@@ -1469,8 +1497,8 @@ body.cursor-ready .pillar { cursor: none; }
           <circle cx="20" cy="19" r="1.5" fill="#c8a800"/>
           <circle cx="26" cy="19" r="1.5" fill="#c8a800"/>
         </svg>
-        <div class="service-name">AI Agents &amp; Chatbots</div>
-        <div class="service-desc">Intelligent assistants that handle queries, qualify leads, and work tirelessly — even while you sleep.</div>
+        <div class="service-name" data-i18n="services.card4.name">AI Agents &amp; Chatbots</div>
+        <div class="service-desc" data-i18n="services.card4.desc">Intelligent assistants that handle queries, qualify leads, and work tirelessly — even while you sleep.</div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="8" y="8" width="88" height="24" rx="12" fill="#c8a800" opacity="0.55"/>
@@ -1521,15 +1549,15 @@ body.cursor-ready .pillar { cursor: none; }
 <section id="how-we-work" class="section-pad">
   <div class="grain" aria-hidden="true"></div>
   <div class="container">
-    <p class="section-label fade-in" style="color: var(--gold)">Our Process</p>
-    <h2 class="section-heading fade-in fade-in-delay-1">How We Work</h2>
+    <p class="section-label fade-in" style="color: var(--gold)" data-i18n="hww.label">Our Process</p>
+    <h2 class="section-heading fade-in fade-in-delay-1" data-i18n="hww.heading">How We Work</h2>
 
     <div class="steps-row">
 
       <div class="step fade-in">
         <div class="step-number">1</div>
-        <div class="step-title">Understand</div>
-        <div class="step-desc">We listen first. Deep dive into your business, your challenges, and the goals that matter most to you.</div>
+        <div class="step-title" data-i18n="hww.step1.title">Understand</div>
+        <div class="step-desc" data-i18n="hww.step1.desc">We listen first. Deep dive into your business, your challenges, and the goals that matter most to you.</div>
       </div>
 
       <div class="connector process-connector fade-in">
@@ -1538,8 +1566,8 @@ body.cursor-ready .pillar { cursor: none; }
 
       <div class="step fade-in fade-in-delay-1">
         <div class="step-number">2</div>
-        <div class="step-title">Build</div>
-        <div class="step-desc">We design and develop a tailored AI solution, iterating closely with you every step of the way.</div>
+        <div class="step-title" data-i18n="hww.step2.title">Build</div>
+        <div class="step-desc" data-i18n="hww.step2.desc">We design and develop a tailored AI solution, iterating closely with you every step of the way.</div>
       </div>
 
       <div class="connector process-connector fade-in fade-in-delay-1">
@@ -1548,8 +1576,8 @@ body.cursor-ready .pillar { cursor: none; }
 
       <div class="step fade-in fade-in-delay-2">
         <div class="step-number">3</div>
-        <div class="step-title">Deploy &amp; Support</div>
-        <div class="step-desc">We launch, measure, and continuously improve your solution — long after the first day goes live.</div>
+        <div class="step-title" data-i18n="hww.step3.title">Deploy &amp; Support</div>
+        <div class="step-desc" data-i18n="hww.step3.desc">We launch, measure, and continuously improve your solution — long after the first day goes live.</div>
       </div>
 
     </div>
@@ -1566,7 +1594,7 @@ body.cursor-ready .pillar { cursor: none; }
 
       <div class="about-photo-side fade-in">
         <div class="about-photo-frame">
-          <img src="founder.png" alt="Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions" class="about-photo">
+          <img src="founder.png" alt="Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions" class="about-photo" data-i18n-attr-alt="about.photo.alt">
         </div>
         <div class="about-founder-info">
           <div class="about-founder-name">Qamarul Arifin bin Abd Manan</div>
@@ -1580,10 +1608,10 @@ body.cursor-ready .pillar { cursor: none; }
       </div>
 
       <div class="about-right fade-in fade-in-delay-1">
-        <p class="about-tag">About Us</p>
-        <h2 class="about-heading">Enterprise expertise,<br>built for everyone.</h2>
-        <p class="about-subheading">Built on wisdom. Delivered with care.</p>
-        <p class="about-text">
+        <p class="about-tag" data-i18n="about.tag">About Us</p>
+        <h2 class="about-heading" data-i18n-html="about.heading">Enterprise expertise,<br>built for everyone.</h2>
+        <p class="about-subheading" data-i18n="about.subheading">Built on wisdom. Delivered with care.</p>
+        <p class="about-text" data-i18n-html="about.text">
           <em>arif</em> is personal — it's a piece of my name, Arifin. But it also means <em>wise</em> in Bahasa Malaysia and Arabic. That double meaning captures exactly what I'm here to build.
           <br><br>
           I spent 13 years as a data scientist and optimisation specialist at PETRONAS and ExxonMobil — building AI-powered systems that global energy companies run on. High-stakes, complex, and genuinely impactful work at scale.
@@ -1605,8 +1633,8 @@ body.cursor-ready .pillar { cursor: none; }
 <section id="why" class="section-pad">
   <div class="grain" aria-hidden="true"></div>
   <div class="container">
-    <p class="section-label fade-in">Why arifAI</p>
-    <h2 class="section-heading fade-in fade-in-delay-1">The difference you'll feel<br>from day one.</h2>
+    <p class="section-label fade-in" data-i18n="why.label">Why arifAI</p>
+    <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="why.heading">The difference you'll feel<br>from day one.</h2>
 
     <div class="pillars-row">
 
@@ -1615,8 +1643,8 @@ body.cursor-ready .pillar { cursor: none; }
           <path d="M4 18C4 10.268 10.268 4 18 4s14 6.268 14 14-6.268 14-14 14S4 25.732 4 18z" stroke="#c8a800" stroke-width="1.5"/>
           <path d="M12 18l4 4 8-8" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="pillar-title">Wisdom over hype</div>
-        <div class="pillar-desc">We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.</div>
+        <div class="pillar-title" data-i18n="why.pillar1.title">Wisdom over hype</div>
+        <div class="pillar-desc" data-i18n="why.pillar1.desc">We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.</div>
       </div>
 
       <div class="pillar fade-in fade-in-delay-1">
@@ -1624,8 +1652,8 @@ body.cursor-ready .pillar { cursor: none; }
           <path d="M18 4l12 6v8c0 7-5 12-12 14C11 30 6 25 6 18v-8l12-6z" stroke="#c8a800" stroke-width="1.5" stroke-linejoin="round"/>
           <path d="M13 18l3 3 7-7" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="pillar-title">Your partner, not your vendor</div>
-        <div class="pillar-desc">From strategy to launch to long-term support, we measure success by your outcomes — not just deliverables.</div>
+        <div class="pillar-title" data-i18n="why.pillar2.title">Your partner, not your vendor</div>
+        <div class="pillar-desc" data-i18n="why.pillar2.desc">From strategy to launch to long-term support, we measure success by your outcomes — not just deliverables.</div>
       </div>
 
       <div class="pillar fade-in fade-in-delay-2">
@@ -1634,8 +1662,8 @@ body.cursor-ready .pillar { cursor: none; }
           <path d="M8 30c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round"/>
           <path d="M24 8l3-2M12 8l-3-2" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
         </svg>
-        <div class="pillar-title">Built for SMEs, not enterprises</div>
-        <div class="pillar-desc">No bloated playbooks. We understand the constraints of real businesses and build accordingly.</div>
+        <div class="pillar-title" data-i18n="why.pillar3.title">Built for SMEs, not enterprises</div>
+        <div class="pillar-desc" data-i18n="why.pillar3.desc">No bloated playbooks. We understand the constraints of real businesses and build accordingly.</div>
       </div>
 
     </div>
@@ -1652,32 +1680,32 @@ body.cursor-ready .pillar { cursor: none; }
 <section id="testimonials" class="section-pad">
   <div class="grain" aria-hidden="true"></div>
   <div class="container" style="position:relative;z-index:1;">
-    <p class="section-label fade-in">Track Record</p>
-    <h2 class="section-heading fade-in fade-in-delay-1">Enterprise-grade results.<br>Now within your reach.</h2>
+    <p class="section-label fade-in" data-i18n="track.label">Track Record</p>
+    <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="track.heading">Enterprise-grade results.<br>Now within your reach.</h2>
 
     <div class="results-grid">
 
       <div class="result-stat fade-in">
-        <div class="result-number">$60M+</div>
-        <div class="result-desc">Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.</div>
-        <div class="result-source">ExxonMobil &nbsp;·&nbsp; Data Scientist</div>
+        <div class="result-number" data-i18n="track.stat1.number">$60M+</div>
+        <div class="result-desc" data-i18n="track.stat1.desc">Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.</div>
+        <div class="result-source" data-i18n="track.stat1.source">ExxonMobil &nbsp;·&nbsp; Data Scientist</div>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-1">
-        <div class="result-number">10+</div>
-        <div class="result-desc">Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.</div>
-        <div class="result-source">ExxonMobil &nbsp;·&nbsp; Global Operations</div>
+        <div class="result-number" data-i18n="track.stat2.number">10+</div>
+        <div class="result-desc" data-i18n="track.stat2.desc">Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.</div>
+        <div class="result-source" data-i18n="track.stat2.source">ExxonMobil &nbsp;·&nbsp; Global Operations</div>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-2">
-        <div class="result-number">13 yrs</div>
-        <div class="result-desc">From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.</div>
-        <div class="result-source">PETRONAS &nbsp;·&nbsp; ExxonMobil &nbsp;·&nbsp; AFED Digital</div>
+        <div class="result-number" data-i18n="track.stat3.number">13 yrs</div>
+        <div class="result-desc" data-i18n="track.stat3.desc">From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.</div>
+        <div class="result-source" data-i18n="track.stat3.source">PETRONAS &nbsp;·&nbsp; ExxonMobil &nbsp;·&nbsp; AFED Digital</div>
       </div>
 
     </div>
 
-    <p class="results-note fade-in">The same rigour that moved the needle for billion-dollar operations — now applied to yours.</p>
+    <p class="results-note fade-in" data-i18n="track.note">The same rigour that moved the needle for billion-dollar operations — now applied to yours.</p>
 
   </div>
 </section>
@@ -1690,34 +1718,34 @@ body.cursor-ready .pillar { cursor: none; }
   <div class="container">
     <div class="contact-inner">
       <div class="fade-in">
-        <h2 class="contact-heading">
+        <h2 class="contact-heading" data-i18n-html="contact.heading">
           Ready to bring <em>AI</em> into<br>your business?
         </h2>
-        <p class="contact-sub">
+        <p class="contact-sub" data-i18n="contact.sub">
           Let's have a conversation. No jargon, no pressure — just honest advice about what AI can genuinely do for you.
         </p>
         <!-- ACTION: Replace REPLACE_WITH_YOUR_ID with your Formspree form ID from formspree.io -->
         <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
-          <input type="hidden" name="_subject" value="New enquiry — arifAI Solutions">
+          <input type="hidden" name="_subject" value="New enquiry — arifAI Solutions" data-i18n-attr-value="contact.form.subject">
           <div class="form-field">
             <input type="text" id="cf-name" name="name" required placeholder=" ">
-            <label for="cf-name">Your name</label>
+            <label for="cf-name" data-i18n="contact.name.label">Your name</label>
           </div>
           <div class="form-field">
             <input type="text" id="cf-company" name="company" placeholder=" ">
-            <label for="cf-company">Business / Company</label>
+            <label for="cf-company" data-i18n="contact.company.label">Business / Company</label>
           </div>
           <div class="form-field form-field--full">
             <textarea id="cf-message" name="body" rows="4" required placeholder=" "></textarea>
-            <label for="cf-message">How can we help?</label>
+            <label for="cf-message" data-i18n="contact.message.label">How can we help?</label>
           </div>
           <div class="form-field">
             <input type="email" id="cf-email" name="email" required placeholder=" ">
-            <label for="cf-email">Your email</label>
+            <label for="cf-email" data-i18n="contact.email.label">Your email</label>
           </div>
-          <button type="submit" class="btn-primary form-submit">Send Message</button>
+          <button type="submit" class="btn-primary form-submit" data-i18n="contact.submit">Send Message</button>
         </form>
-        <p class="contact-alt">Or email us directly at
+        <p class="contact-alt" data-i18n-html="contact.alt">Or email us directly at
           <a href="mailto:hello@arifaisolutions.com">hello@arifaisolutions.com</a>
         </p>
       </div>
@@ -1754,10 +1782,10 @@ body.cursor-ready .pillar { cursor: none; }
     </a>
 
     <ul class="footer-nav">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#how-we-work">How We Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#services" data-i18n="nav.services">Services</a></li>
+      <li><a href="#how-we-work" data-i18n="nav.howwework">How We Work</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
 
     <div class="footer-right">
@@ -1768,7 +1796,7 @@ body.cursor-ready .pillar { cursor: none; }
         </svg>
       </a>
       <a href="mailto:hello@arifaisolutions.com" class="footer-email">hello@arifaisolutions.com</a>
-      <p class="footer-copy">&copy; 2026 arifAI Solutions. All rights reserved.</p>
+      <p class="footer-copy" data-i18n-html="footer.copy">&copy; 2026 arifAI Solutions. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -1778,6 +1806,277 @@ body.cursor-ready .pillar { cursor: none; }
      JAVASCRIPT
 ══════════════════════════════════════ -->
 <script>
+// ── Translation dictionary ──
+const TRANSLATIONS = {
+  en: {
+    'meta.title':       'arifAI Solutions — Wise AI. Built for Your Business.',
+    'meta.description': 'arifAI Solutions builds custom AI applications, automations, and intelligent agents — tailored to how your business actually works.',
+    'meta.og.title':    'arifAI Solutions — Wise AI. Built for Your Business.',
+    'meta.og.desc':     'Custom AI applications, automations, and intelligent agents tailored for SME business owners.',
+
+    'nav.services':   'Services',
+    'nav.howwework':  'How We Work',
+    'nav.about':      'About',
+    'nav.contact':    'Contact',
+    'nav.cta':        "Let's Talk",
+
+    'hero.headline': '<span class="hero-word" style="--wd:0s"><em>Wise</em></span> <span class="hero-word" style="--wd:0.08s"><em>AI.</em></span> <span class="hero-word" style="--wd:0.16s">Built</span> <span class="hero-word" style="--wd:0.24s">for</span><br aria-hidden="true"> <span class="hero-word" style="--wd:0.32s">Your</span> <span class="hero-word" style="--wd:0.40s">Business.</span>',
+    'hero.headline.aria': 'Wise AI. Built for Your Business.',
+    'hero.sub':        'arifAI Solutions builds custom AI applications, automations, and intelligent agents — tailored to how your business actually works.',
+    'hero.cta.primary':   'Start a Project',
+    'hero.cta.secondary': 'See Our Services',
+    'hero.scroll':        'Scroll',
+
+    'services.label':    'What We Do',
+    'services.heading':  'AI that fits your world —<br>not the other way around.',
+    'services.card1.name': 'Custom AI Apps',
+    'services.card1.desc': 'Bespoke applications built around your workflow — not generic tools retrofitted to your needs.',
+    'services.card2.name': 'AI Consulting',
+    'services.card2.desc': 'Strategy and roadmapping for businesses ready to adopt AI purposefully, with a clear path forward.',
+    'services.card3.name': 'Automation & Integration',
+    'services.card3.desc': 'Connect AI to your existing tools and processes — seamless, reliable, and built to scale with you.',
+    'services.card4.name': 'AI Agents & Chatbots',
+    'services.card4.desc': 'Intelligent assistants that handle queries, qualify leads, and work tirelessly — even while you sleep.',
+
+    'marquee.1': 'Custom AI Apps',
+    'marquee.2': 'AI Consulting',
+    'marquee.3': 'Automation &amp; Integration',
+    'marquee.4': 'AI Agents &amp; Chatbots',
+    'marquee.5': 'Workflow Automation',
+    'marquee.6': 'Business AI Strategy',
+    'marquee.7': 'Tailored Solutions',
+    'marquee.8': 'Human-First AI',
+
+    'hww.label':       'Our Process',
+    'hww.heading':     'How We Work',
+    'hww.step1.title': 'Understand',
+    'hww.step1.desc':  'We listen first. Deep dive into your business, your challenges, and the goals that matter most to you.',
+    'hww.step2.title': 'Build',
+    'hww.step2.desc':  'We design and develop a tailored AI solution, iterating closely with you every step of the way.',
+    'hww.step3.title': 'Deploy & Support',
+    'hww.step3.desc':  'We launch, measure, and continuously improve your solution — long after the first day goes live.',
+
+    'about.tag':       'About Us',
+    'about.heading':   'Enterprise expertise,<br>built for everyone.',
+    'about.subheading':'Built on wisdom. Delivered with care.',
+    'about.photo.alt': 'Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions',
+    'about.text':      '<em>arif</em> is personal — it\'s a piece of my name, Arifin. But it also means <em>wise</em> in Bahasa Malaysia and Arabic. That double meaning captures exactly what I\'m here to build.<br><br>I spent 13 years as a data scientist and optimisation specialist at PETRONAS and ExxonMobil — building AI-powered systems that global energy companies run on. High-stakes, complex, and genuinely impactful work at scale.<br><br>What I kept seeing was the gap. The same capability optimising billion-dollar operations wasn\'t reaching the business owner down the street — the F&amp;B entrepreneur, the logistics SME, the independent professional who could transform their business with the right AI, but had no way in.<br><br><strong>arifAI Solutions exists to close that gap.</strong> Enterprise-grade thinking, without the enterprise price tag or complexity — for businesses in Melaka, across Malaysia, and beyond.',
+
+    'why.label':       'Why arifAI',
+    'why.heading':     "The difference you'll feel<br>from day one.",
+    'why.pillar1.title': 'Wisdom over hype',
+    'why.pillar1.desc':  'We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.',
+    'why.pillar2.title': 'Your partner, not your vendor',
+    'why.pillar2.desc':  'From strategy to launch to long-term support, we measure success by your outcomes — not just deliverables.',
+    'why.pillar3.title': 'Built for SMEs, not enterprises',
+    'why.pillar3.desc':  'No bloated playbooks. We understand the constraints of real businesses and build accordingly.',
+
+    'track.label':        'Track Record',
+    'track.heading':      'Enterprise-grade results.<br>Now within your reach.',
+    'track.stat1.number': '$60M+',
+    'track.stat1.desc':   'Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.',
+    'track.stat1.source': 'ExxonMobil \u00a0·\u00a0 Data Scientist',
+    'track.stat2.number': '10+',
+    'track.stat2.desc':   'Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.',
+    'track.stat2.source': 'ExxonMobil \u00a0·\u00a0 Global Operations',
+    'track.stat3.number': '13 yrs',
+    'track.stat3.desc':   'From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.',
+    'track.stat3.source': 'PETRONAS \u00a0·\u00a0 ExxonMobil \u00a0·\u00a0 AFED Digital',
+    'track.note':         'The same rigour that moved the needle for billion-dollar operations — now applied to yours.',
+
+    'contact.heading':      'Ready to bring <em>AI</em> into<br>your business?',
+    'contact.sub':          "Let's have a conversation. No jargon, no pressure — just honest advice about what AI can genuinely do for you.",
+    'contact.form.subject': 'New enquiry — arifAI Solutions',
+    'contact.name.label':   'Your name',
+    'contact.company.label':'Business / Company',
+    'contact.message.label':'How can we help?',
+    'contact.email.label':  'Your email',
+    'contact.submit':       'Send Message',
+    'contact.alt':          'Or email us directly at <a href="mailto:hello@arifaisolutions.com">hello@arifaisolutions.com</a>',
+
+    'footer.copy': '&copy; 2026 arifAI Solutions. All rights reserved.',
+
+    'js.sending': 'Sending\u2026',
+    'js.success': "Message sent — we'll be in touch soon.",
+    'js.send':    'Send Message',
+    'js.error':   'Something went wrong. Please email us directly at hello@arifaisolutions.com',
+  },
+
+  ms: {
+    'meta.title':       'arifAI Solutions — AI Bijak. Dibina untuk Perniagaan Anda.',
+    'meta.description': 'arifAI Solutions membina aplikasi AI khas, automasi, dan ejen pintar — disesuaikan dengan cara perniagaan anda sebenarnya berfungsi.',
+    'meta.og.title':    'arifAI Solutions — AI Bijak. Dibina untuk Perniagaan Anda.',
+    'meta.og.desc':     'Aplikasi AI khas, automasi, dan ejen pintar yang disesuaikan untuk pemilik perniagaan PKS.',
+
+    'nav.services':  'Perkhidmatan',
+    'nav.howwework': 'Cara Kami Bekerja',
+    'nav.about':     'Tentang Kami',
+    'nav.contact':   'Hubungi',
+    'nav.cta':       'Mari Berbincang',
+
+    'hero.headline': '<span class="hero-word" style="--wd:0s"><em>AI</em></span> <span class="hero-word" style="--wd:0.08s"><em>Bijak.</em></span> <span class="hero-word" style="--wd:0.16s">Dibina</span> <span class="hero-word" style="--wd:0.24s">untuk</span><br aria-hidden="true"> <span class="hero-word" style="--wd:0.32s">Perniagaan</span> <span class="hero-word" style="--wd:0.40s">Anda.</span>',
+    'hero.headline.aria': 'AI Bijak. Dibina untuk Perniagaan Anda.',
+    'hero.sub':        'arifAI Solutions membina aplikasi AI khas, automasi, dan ejen pintar — disesuaikan dengan cara perniagaan anda sebenarnya berfungsi.',
+    'hero.cta.primary':   'Mulakan Projek',
+    'hero.cta.secondary': 'Lihat Perkhidmatan',
+    'hero.scroll':        'Tatal',
+
+    'services.label':    'Apa Yang Kami Buat',
+    'services.heading':  'AI yang sesuai dengan dunia anda —<br>bukan sebaliknya.',
+    'services.card1.name': 'Aplikasi AI Khas',
+    'services.card1.desc': 'Aplikasi khas yang dibina mengikut aliran kerja anda — bukan alat generik yang dipaksa untuk keperluan anda.',
+    'services.card2.name': 'Perundingan AI',
+    'services.card2.desc': 'Strategi dan peta jalan untuk perniagaan yang bersedia menggunakan AI dengan bertujuan, dengan laluan yang jelas ke hadapan.',
+    'services.card3.name': 'Automasi & Integrasi',
+    'services.card3.desc': 'Hubungkan AI dengan alat dan proses sedia ada anda — lancar, boleh dipercayai, dan dibina untuk berkembang bersama anda.',
+    'services.card4.name': 'Ejen AI & Chatbot',
+    'services.card4.desc': 'Pembantu pintar yang mengendalikan pertanyaan, layak untuk prospek, dan bekerja tanpa henti — walaupun ketika anda tidur.',
+
+    'marquee.1': 'Aplikasi AI Khas',
+    'marquee.2': 'Perundingan AI',
+    'marquee.3': 'Automasi &amp; Integrasi',
+    'marquee.4': 'Ejen AI &amp; Chatbot',
+    'marquee.5': 'Automasi Aliran Kerja',
+    'marquee.6': 'Strategi AI Perniagaan',
+    'marquee.7': 'Penyelesaian Khusus',
+    'marquee.8': 'AI Berasaskan Manusia',
+
+    'hww.label':       'Proses Kami',
+    'hww.heading':     'Cara Kami Bekerja',
+    'hww.step1.title': 'Memahami',
+    'hww.step1.desc':  'Kami mendengar dahulu. Menyelami perniagaan anda, cabaran anda, dan matlamat yang paling penting bagi anda.',
+    'hww.step2.title': 'Membina',
+    'hww.step2.desc':  'Kami mereka bentuk dan membangunkan penyelesaian AI yang disesuaikan, berulang kali bersama anda di setiap langkah.',
+    'hww.step3.title': 'Lancar & Sokong',
+    'hww.step3.desc':  'Kami melancarkan, mengukur, dan terus memperbaiki penyelesaian anda — jauh selepas hari pertama bermula.',
+
+    'about.tag':       'Tentang Kami',
+    'about.heading':   'Kepakaran perusahaan,<br>untuk semua orang.',
+    'about.subheading':'Dibina dengan hikmah. Disampaikan dengan penuh kasih.',
+    'about.photo.alt': 'Qamarul Arifin bin Abd Manan, Pengasas arifAI Solutions',
+    'about.text':      '<em>arif</em> itu peribadi — ia sebahagian daripada nama saya, Arifin. Tetapi ia juga bermaksud <em>bijak</em> dalam Bahasa Malaysia dan Arab. Maksud berganda itulah yang menggambarkan apa yang saya bina di sini.<br><br>Saya menghabiskan 13 tahun sebagai saintis data dan pakar pengoptimuman di PETRONAS dan ExxonMobil — membina sistem berkuasa AI yang digunakan oleh syarikat tenaga global. Kerja yang berisiko tinggi, kompleks, dan benar-benar memberi impak pada skala yang besar.<br><br>Apa yang saya perhatikan ialah jurang itu. Kemampuan yang sama yang mengoptimumkan operasi bernilai berbilion ringgit tidak sampai kepada pemilik perniagaan di tepi jalan — usahawan F&amp;B, PKS logistik, profesional bebas yang boleh mengubah perniagaan mereka dengan AI yang tepat, tetapi tiada jalan masuk.<br><br><strong>arifAI Solutions wujud untuk menutup jurang itu.</strong> Pemikiran kelas perusahaan, tanpa harga tag atau kerumitan perusahaan — untuk perniagaan di Melaka, seluruh Malaysia, dan merentasi sempadan.',
+
+    'why.label':       'Kenapa arifAI',
+    'why.heading':     'Perbezaan yang akan anda rasai<br>dari hari pertama.',
+    'why.pillar1.title': 'Hikmah berbanding hype',
+    'why.pillar1.desc':  'Kami bertanya "patut ke?" sebelum "macam mana nak?" — supaya anda hanya melabur dalam AI yang benar-benar sesuai dengan perniagaan anda.',
+    'why.pillar2.title': 'Rakan kongsi anda, bukan pembekal',
+    'why.pillar2.desc':  'Dari strategi hingga pelancaran hingga sokongan jangka panjang, kami mengukur kejayaan berdasarkan hasil anda — bukan sekadar penghantaran.',
+    'why.pillar3.title': 'Dibina untuk PKS, bukan korporat',
+    'why.pillar3.desc':  'Tiada panduan yang membosankan. Kami memahami kekangan perniagaan sebenar dan membina sewajarnya.',
+
+    'track.label':        'Rekod Prestasi',
+    'track.heading':      'Keputusan kelas perusahaan.<br>Kini dalam jangkauan anda.',
+    'track.stat1.number': '$60J+',
+    'track.stat1.desc':   'Nilai tahunan yang diraih melalui penyelesaian sains data termaju — alat ramalan multivariat yang mengubah perancangan inventori produk, digabungkan dengan pengoptimuman berasaskan ML untuk saluran jualan kilang merentas operasi global.',
+    'track.stat1.source': 'ExxonMobil \u00a0·\u00a0 Saintis Data',
+    'track.stat2.number': '10+',
+    'track.stat2.desc':   'Aplikasi pengoptimuman masa nyata yang dibina dan digunakan di tapak tenaga dan pembuatan di Amerika Syarikat, Eropah dan Asia-Pasifik — masing-masing mengekalkan penambahbaikan operasi yang boleh diukur secara berterusan pada skala perindustrian.',
+    'track.stat2.source': 'ExxonMobil \u00a0·\u00a0 Operasi Global',
+    'track.stat3.number': '13 thn',
+    'track.stat3.desc':   'Dari Kawalan Proses Termaju di kilang PETRONAS Melaka hingga sistem AI perusahaan di ExxonMobil — menyelesaikan masalah data dan pengoptimuman berisiko tinggi untuk syarikat tenaga global. Kini menerapkan ketegasan yang sama untuk perniagaan anda.',
+    'track.stat3.source': 'PETRONAS \u00a0·\u00a0 ExxonMobil \u00a0·\u00a0 AFED Digital',
+    'track.note':         'Ketegasan yang sama yang mempercepatkan operasi bernilai berbilion ringgit — kini diterapkan untuk anda.',
+
+    'contact.heading':      'Bersedia untuk membawa <em>AI</em> ke dalam<br>perniagaan anda?',
+    'contact.sub':          'Mari berbincang. Tiada jargon, tiada tekanan — hanya nasihat jujur tentang apa yang AI benar-benar boleh lakukan untuk anda.',
+    'contact.form.subject': 'Pertanyaan baharu — arifAI Solutions',
+    'contact.name.label':   'Nama anda',
+    'contact.company.label':'Perniagaan / Syarikat',
+    'contact.message.label':'Bagaimana kami boleh membantu?',
+    'contact.email.label':  'E-mel anda',
+    'contact.submit':       'Hantar Mesej',
+    'contact.alt':          'Atau e-mel kami terus di <a href="mailto:hello@arifaisolutions.com">hello@arifaisolutions.com</a>',
+
+    'footer.copy': '&copy; 2026 arifAI Solutions. Hak cipta terpelihara.',
+
+    'js.sending': 'Menghantar\u2026',
+    'js.success': 'Mesej dihantar — kami akan menghubungi anda tidak lama lagi.',
+    'js.send':    'Hantar Mesej',
+    'js.error':   'Sesuatu telah silap. Sila e-mel kami terus di hello@arifaisolutions.com',
+  },
+};
+
+let currentLang = 'en';
+
+// ── Apply language ──
+function applyLanguage(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+
+  document.documentElement.setAttribute('lang', lang === 'ms' ? 'ms' : 'en');
+
+  document.title = t['meta.title'];
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', t['meta.description']);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', t['meta.og.title']);
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute('content', t['meta.og.desc']);
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.setAttribute('content', t['meta.og.title']);
+  const twDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twDesc) twDesc.setAttribute('content', t['meta.og.desc']);
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n];
+  });
+
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    if (t[el.dataset.i18nHtml] !== undefined) el.innerHTML = t[el.dataset.i18nHtml];
+  });
+
+  document.querySelectorAll('[data-i18n-headline]').forEach(el => {
+    const val = t[el.dataset.i18nHeadline];
+    if (val !== undefined) {
+      el.innerHTML = val;
+      el.querySelectorAll('.hero-word').forEach(w => w.classList.add('revealed'));
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-attr-label]').forEach(el => {
+    if (t[el.dataset.i18nAttrLabel] !== undefined)
+      el.setAttribute('aria-label', t[el.dataset.i18nAttrLabel]);
+  });
+
+  document.querySelectorAll('[data-i18n-attr-alt]').forEach(el => {
+    if (t[el.dataset.i18nAttrAlt] !== undefined)
+      el.setAttribute('alt', t[el.dataset.i18nAttrAlt]);
+  });
+
+  document.querySelectorAll('[data-i18n-attr-value]').forEach(el => {
+    if (t[el.dataset.i18nAttrValue] !== undefined)
+      el.setAttribute('value', t[el.dataset.i18nAttrValue]);
+  });
+
+  const track = document.querySelector('.marquee-track');
+  if (track) {
+    const items = [1,2,3,4,5,6,7,8].map(n =>
+      `<span class="marquee-item">${t['marquee.' + n]}<span class="marquee-dot"></span></span>`
+    );
+    track.innerHTML = [...items, ...items].join('');
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle('lang-btn--active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  localStorage.setItem('lang', lang);
+}
+
+// ── Toggle click handlers ──
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+});
+
+// ── Init: restore saved preference ──
+(function initLang() {
+  const saved = localStorage.getItem('lang');
+  if (saved === 'ms') applyLanguage('ms');
+})();
+
 // ── Feature detection ──
 const IS_TOUCH   = window.matchMedia('(hover: none)').matches;
 const IS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1859,7 +2158,7 @@ if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('[type="submit"]');
-    btn.textContent = 'Sending…';
+    btn.textContent = TRANSLATIONS[currentLang]['js.sending'];
     btn.disabled = true;
     try {
       const res = await fetch(contactForm.action, {
@@ -1869,15 +2168,15 @@ if (contactForm) {
       });
       if (res.ok) {
         contactForm.innerHTML = `<div class="form-success">
-          <p>Message sent — we'll be in touch soon.</p>
+          <p>${TRANSLATIONS[currentLang]['js.success']}</p>
         </div>`;
       } else {
         throw new Error('server error');
       }
     } catch {
-      btn.textContent = 'Send Message';
+      btn.textContent = TRANSLATIONS[currentLang]['js.send'];
       btn.disabled = false;
-      alert('Something went wrong. Please email us directly at hello@arifaisolutions.com');
+      alert(TRANSLATIONS[currentLang]['js.error']);
     }
   });
 }

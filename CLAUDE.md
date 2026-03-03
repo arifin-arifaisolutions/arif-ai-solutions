@@ -33,7 +33,7 @@ All CSS is in a `<style>` block at the top of `<head>`. All JS is in a `<script>
 2. Section styles in the same top-to-bottom order as the HTML sections
 3. `@media (max-width: 767px)` breakpoints co-located with their section styles
 4. HTML sections: Navbar → Hero → Services → Marquee → How We Work → About → Why Choose Us → Track Record → Contact → Footer
-5. JS: feature detection → hero load animation → scroll observer → scroll handler → contact form AJAX → hamburger → cursor → 3D tilt → magnetic buttons
+5. JS: **i18n system** (TRANSLATIONS dict → applyLanguage → initLang) → feature detection → hero load animation → scroll observer → scroll handler → contact form AJAX → hamburger → cursor → 3D tilt → magnetic buttons
 
 Section backgrounds alternate dark/cream:
 - Hero `#0a0a0a` → Services `#f4f1e8` → Marquee gold → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Track Record `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
@@ -83,6 +83,36 @@ const IS_TOUCH   = window.matchMedia('(hover: none)').matches;
 const IS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 ```
 `@media (prefers-reduced-motion: reduce)` sets all durations to `0.01ms` — this automatically disables all CSS animations including card illustrations.
+
+## Internationalisation (i18n)
+
+EN/BM language toggle implemented entirely in JS — no external libraries.
+
+**Key pieces:**
+- `TRANSLATIONS` object at the top of `<script>` — two keys `en` and `ms`, each containing ~60 string keys.
+- `currentLang` module-level variable (default `'en'`); `applyLanguage(lang)` is the single entry point for all language switches.
+- `localStorage` key `'lang'` persists the choice. `initLang()` IIFE at script bottom restores it synchronously.
+
+**Attribute protocol — which attribute to use:**
+
+| Attribute | Setter | Use when |
+|---|---|---|
+| `data-i18n="key"` | `textContent` | Plain text (no HTML tags in value) |
+| `data-i18n-html="key"` | `innerHTML` | Rich text with `<br>`, `<em>`, `<strong>`, `<a>` |
+| `data-i18n-headline="key"` | `innerHTML` + re-adds `.revealed` | Hero `<h1>` only (preserves word-reveal state) |
+| `data-i18n-attr-label="key"` | `aria-label` attribute | Accessible labels |
+| `data-i18n-attr-alt="key"` | `alt` attribute | Images |
+| `data-i18n-attr-value="key"` | `value` attribute | Hidden form inputs |
+
+**HTML entity rule:** Values set via `textContent` (`data-i18n`) must use literal `&`, not `&amp;`. Values set via `innerHTML` must use `&amp;` so the parser renders `&`.
+
+**Marquee:** Not annotated with `data-i18n`. Instead, `applyLanguage` regenerates `.marquee-track` innerHTML from `marquee.1`–`marquee.8` keys (these use `&amp;` since they go into innerHTML).
+
+**Toggle UI:** `#langToggle` (desktop, hidden at `≤767px`) and `#langToggleMobile` (inside `#mobileMenu`, hidden at `≥768px`) both use `.lang-btn[data-lang]` buttons. Clicking either calls `applyLanguage` and both toggles update together.
+
+**Adding a new translatable string:**
+1. Add the `data-i18n[-*]="my.key"` attribute to the element in HTML.
+2. Add `'my.key': '...'` to both `TRANSLATIONS.en` and `TRANSLATIONS.ms`.
 
 ## JavaScript Features
 
