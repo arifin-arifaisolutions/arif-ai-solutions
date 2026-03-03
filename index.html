@@ -561,6 +561,78 @@ body.cursor-ready .pillar { cursor: none; }
   border-color: rgba(200,168,0,0.5);
   transform: translateY(-4px);
 }
+
+/* — Card illustrations — */
+.service-card-illustration {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 140px; height: 120px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+  transition: opacity 0.4s ease;
+  mask-image: linear-gradient(to top left, black 0%, transparent 68%);
+  -webkit-mask-image: linear-gradient(to top left, black 0%, transparent 68%);
+}
+.service-card:hover .service-card-illustration { opacity: 0.25; }
+
+/* Bar breathe — Custom AI Apps */
+.ill-bar { transform-box: fill-box; transform-origin: bottom center; }
+@keyframes illBar1 { 0%,100%{transform:scaleY(1)}    50%{transform:scaleY(0.55)} }
+@keyframes illBar2 { 0%,100%{transform:scaleY(0.72)} 50%{transform:scaleY(1)}    }
+@keyframes illBar3 { 0%,100%{transform:scaleY(1)}    50%{transform:scaleY(0.65)} }
+@keyframes illBar4 { 0%,100%{transform:scaleY(0.78)} 50%{transform:scaleY(1)}    }
+.ill-bar-1 { animation: illBar1 2.8s ease-in-out infinite; }
+.ill-bar-2 { animation: illBar2 3.2s ease-in-out infinite 0.5s; }
+.ill-bar-3 { animation: illBar3 2.6s ease-in-out infinite 1.0s; }
+.ill-bar-4 { animation: illBar4 3.0s ease-in-out infinite 1.5s; }
+
+/* Line trace — AI Consulting */
+.ill-line-path {
+  stroke-dasharray: 132;
+  stroke-dashoffset: 132;
+  animation: illLineTrace 3.5s ease-in-out infinite;
+}
+@keyframes illLineTrace {
+  0%      { stroke-dashoffset: 132; opacity: 0; }
+  8%      { stroke-dashoffset: 132; opacity: 1; }
+  65%,78% { stroke-dashoffset: 0;   opacity: 1; }
+  100%    { stroke-dashoffset: 0;   opacity: 0; }
+}
+.ill-dot-end {
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0;
+  animation: illDotPulse 3.5s ease-in-out infinite;
+}
+@keyframes illDotPulse {
+  0%,58%  { opacity: 0; transform: scale(0);   }
+  70%     { opacity: 1; transform: scale(1.5); }
+  84%     { opacity: 1; transform: scale(1);   }
+  100%    { opacity: 0; transform: scale(0);   }
+}
+
+/* Signal travel — Automation & Integration */
+.ill-base-line { opacity: 0.3; }
+.ill-signal-line { stroke-dasharray: 7 57; }
+.ill-signal-1 { animation: illSignalMove 2.0s linear infinite; }
+.ill-signal-2 { animation: illSignalMove 2.0s linear infinite 0.5s; }
+.ill-signal-3 { animation: illSignalMove 2.0s linear infinite 1.0s; }
+.ill-signal-4 { animation: illSignalMove 2.0s linear infinite 1.5s; }
+@keyframes illSignalMove {
+  from { stroke-dashoffset: 0;   }
+  to   { stroke-dashoffset: -64; }
+}
+
+/* Typing dots — AI Agents & Chatbots */
+.ill-typing-dot { transform-box: fill-box; transform-origin: center; }
+.ill-typing-dot-1 { animation: illTypeDot 1.2s ease-in-out infinite; }
+.ill-typing-dot-2 { animation: illTypeDot 1.2s ease-in-out infinite 0.2s; }
+.ill-typing-dot-3 { animation: illTypeDot 1.2s ease-in-out infinite 0.4s; }
+@keyframes illTypeDot {
+  0%,100% { transform: translateY(0);   }
+  40%     { transform: translateY(-5px); }
+}
+
 .service-icon {
   width: 40px;
   height: 40px;
@@ -1315,6 +1387,19 @@ body.cursor-ready .pillar { cursor: none; }
         </svg>
         <div class="service-name">Custom AI Apps</div>
         <div class="service-desc">Bespoke applications built around your workflow — not generic tools retrofitted to your needs.</div>
+        <div class="service-card-illustration" aria-hidden="true">
+          <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="134" height="114" rx="6" stroke="#c8a800" stroke-width="1.5"/>
+            <line x1="3" y1="22" x2="137" y2="22" stroke="#c8a800" stroke-width="1"/>
+            <circle cx="13" cy="12.5" r="2.5" fill="#c8a800"/>
+            <circle cx="22" cy="12.5" r="2.5" fill="#c8a800"/>
+            <circle cx="31" cy="12.5" r="2.5" fill="#c8a800"/>
+            <rect class="ill-bar ill-bar-1" x="22" y="78" width="16" height="34" rx="2" fill="#c8a800"/>
+            <rect class="ill-bar ill-bar-2" x="46" y="58" width="16" height="54" rx="2" fill="#c8a800"/>
+            <rect class="ill-bar ill-bar-3" x="70" y="68" width="16" height="44" rx="2" fill="#c8a800"/>
+            <rect class="ill-bar ill-bar-4" x="94" y="48" width="16" height="64" rx="2" fill="#c8a800"/>
+          </svg>
+        </div>
       </div>
 
       <div class="service-card fade-in fade-in-delay-1">
@@ -1329,6 +1414,20 @@ body.cursor-ready .pillar { cursor: none; }
         </svg>
         <div class="service-name">AI Consulting</div>
         <div class="service-desc">Strategy and roadmapping for businesses ready to adopt AI purposefully, with a clear path forward.</div>
+        <div class="service-card-illustration" aria-hidden="true">
+          <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="15" y1="8" x2="15" y2="104" stroke="#c8a800" stroke-width="1"/>
+            <line x1="14" y1="104" x2="132" y2="104" stroke="#c8a800" stroke-width="1"/>
+            <line x1="15" y1="30" x2="130" y2="30" stroke="#c8a800" stroke-width="0.5" opacity="0.35"/>
+            <line x1="15" y1="55" x2="130" y2="55" stroke="#c8a800" stroke-width="0.5" opacity="0.35"/>
+            <line x1="15" y1="80" x2="130" y2="80" stroke="#c8a800" stroke-width="0.5" opacity="0.35"/>
+            <path class="ill-line-path" d="M 25,98 L 50,78 L 75,57 L 100,34 L 125,13" stroke="#c8a800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="78" r="2.5" fill="#c8a800" opacity="0.4"/>
+            <circle cx="75" cy="57" r="2.5" fill="#c8a800" opacity="0.4"/>
+            <circle cx="100" cy="34" r="2.5" fill="#c8a800" opacity="0.4"/>
+            <circle class="ill-dot-end" cx="125" cy="13" r="4.5" fill="#c8a800"/>
+          </svg>
+        </div>
       </div>
 
       <div class="service-card fade-in fade-in-delay-2">
@@ -1341,6 +1440,26 @@ body.cursor-ready .pillar { cursor: none; }
         </svg>
         <div class="service-name">Automation &amp; Integration</div>
         <div class="service-desc">Connect AI to your existing tools and processes — seamless, reliable, and built to scale with you.</div>
+        <div class="service-card-illustration" aria-hidden="true">
+          <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line class="ill-base-line" x1="15" y1="60" x2="70" y2="25" stroke="#c8a800" stroke-width="1.5"/>
+            <line class="ill-base-line" x1="70" y1="25" x2="125" y2="60" stroke="#c8a800" stroke-width="1.5"/>
+            <line class="ill-base-line" x1="15" y1="60" x2="70" y2="95" stroke="#c8a800" stroke-width="1.5"/>
+            <line class="ill-base-line" x1="70" y1="95" x2="125" y2="60" stroke="#c8a800" stroke-width="1.5"/>
+            <line class="ill-signal-line ill-signal-1" x1="15" y1="60" x2="70" y2="25" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+            <line class="ill-signal-line ill-signal-2" x1="70" y1="25" x2="125" y2="60" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+            <line class="ill-signal-line ill-signal-3" x1="15" y1="60" x2="70" y2="95" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+            <line class="ill-signal-line ill-signal-4" x1="70" y1="95" x2="125" y2="60" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="15" cy="60" r="8" stroke="#c8a800" stroke-width="1.5"/>
+            <circle cx="15" cy="60" r="3" fill="#c8a800"/>
+            <circle cx="70" cy="25" r="8" stroke="#c8a800" stroke-width="1.5"/>
+            <circle cx="70" cy="25" r="3" fill="#c8a800"/>
+            <circle cx="70" cy="95" r="8" stroke="#c8a800" stroke-width="1.5"/>
+            <circle cx="70" cy="95" r="3" fill="#c8a800"/>
+            <circle cx="125" cy="60" r="8" stroke="#c8a800" stroke-width="1.5"/>
+            <circle cx="125" cy="60" r="3" fill="#c8a800"/>
+          </svg>
+        </div>
       </div>
 
       <div class="service-card fade-in fade-in-delay-3">
@@ -1352,6 +1471,17 @@ body.cursor-ready .pillar { cursor: none; }
         </svg>
         <div class="service-name">AI Agents &amp; Chatbots</div>
         <div class="service-desc">Intelligent assistants that handle queries, qualify leads, and work tirelessly — even while you sleep.</div>
+        <div class="service-card-illustration" aria-hidden="true">
+          <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="88" height="24" rx="12" fill="#c8a800" opacity="0.55"/>
+            <rect x="8" y="42" width="66" height="24" rx="12" fill="#c8a800" opacity="0.5"/>
+            <rect x="44" y="76" width="88" height="24" rx="12" fill="#c8a800" opacity="0.35"/>
+            <rect x="8" y="104" width="58" height="13" rx="6.5" stroke="#c8a800" stroke-width="1.2" fill="rgba(200,168,0,0.06)"/>
+            <circle class="ill-typing-dot ill-typing-dot-1" cx="23" cy="110.5" r="3" fill="#c8a800"/>
+            <circle class="ill-typing-dot ill-typing-dot-2" cx="37" cy="110.5" r="3" fill="#c8a800"/>
+            <circle class="ill-typing-dot ill-typing-dot-3" cx="51" cy="110.5" r="3" fill="#c8a800"/>
+          </svg>
+        </div>
       </div>
 
     </div>
