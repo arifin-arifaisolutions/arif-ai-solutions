@@ -38,7 +38,14 @@ All CSS is in a `<style>` block at the top of `<head>`. All JS is in a `<script>
 Section backgrounds alternate dark/cream:
 - Hero `#0a0a0a` → Services `#f4f1e8` → Marquee gold → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Track Record `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
 
-**Assets at project root:** `founder.png` — founder photo used in the About section.
+**Assets at project root:**
+- `founder.png` — founder photo used in the About section (`loading="lazy"`)
+- `og-image.jpg` — branded 1200×630px social sharing image (do not delete; referenced in og:image meta tags)
+- `og-image.html` — source template used to generate `og-image.jpg` (keep for future regeneration)
+- `og-image.png` — intermediate full-res PNG (can be deleted, `og-image.jpg` is the live asset)
+- `robots.txt` — allows all crawlers, references sitemap
+- `sitemap.xml` — single-URL sitemap for `arifaisolutions.com`
+- `vercel.json` — Vercel security headers config (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, X-XSS-Protection)
 
 ## Brand Tokens (do not deviate)
 
@@ -160,19 +167,24 @@ Each stat: `.result-number` (large gold figure) → `.result-desc` → `.result-
 
 ## Contact Form
 
-Formspree AJAX submission. **Pending:** replace `REPLACE_WITH_YOUR_ID` in the form `action` URL with the real Formspree form ID before going live.
+Formspree AJAX submission. Form ID: `mgoljdzp` — action URL: `https://formspree.io/f/mgoljdzp`. Submissions go to `arifin@arifaisolutions.com`.
 
 Floating label pattern: `.form-field` wraps `<input placeholder=" ">` + `<label>`, floated via `:placeholder-shown`. Success state: inline `.form-success` shown on 200 response; button restored on error.
+
+## Analytics
+
+Google Analytics 4 is wired into `<head>` — Measurement ID: `G-Y37N4RXFL1`. Both `gtag` script tags must stay in sync if the ID ever changes.
 
 ## Deployment
 
 - **Repo:** `https://github.com/arifin-arifaisolutions/arif-ai-solutions` (branch: `main`)
-- **Host:** Vercel (GitHub account: `arifin-arifaisolutions`) — auto-deploys on push to `main`, no build step, no `vercel.json` needed
-- **Target domain:** `arifaisolutions.com`
-- **DNS (at registrar):** `A @ 76.76.21.21` + `CNAME www cname.vercel-dns.com`
+- **Host:** Vercel (GitHub account: `arifin-arifaisolutions`) — auto-deploys on push to `main`, no build step
+- **Live domain:** `https://arifaisolutions.com` (SSL active, Grade A security headers)
+- **DNS (Squarespace Domains):** `A @ 216.198.79.1` + `CNAME www cname.vercel-dns.com`
+- **Security headers:** configured in `vercel.json` — do not delete. CSP intentionally omitted (inline CSS/JS requires `unsafe-inline`; add as future hardening if styles/scripts are ever externalised)
 
-## Pending Before Launch
+## Remaining TODOs
 
-- [ ] Replace Formspree form ID in contact form `action` attribute
-- [ ] Verify custom domain is active on Vercel dashboard
-- [ ] Replace Track Record section with real client testimonials when available
+- [ ] Submit `https://arifaisolutions.com/sitemap.xml` to Google Search Console
+- [ ] Replace Track Record section stats with real client testimonials when available
+- [ ] Add Content-Security-Policy header to `vercel.json` once CSS/JS are externalised (optional hardening — would move grade from A → A+)
