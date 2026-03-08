@@ -36,7 +36,7 @@ All CSS is in a `<style>` block at the top of `<head>`. All JS is in a `<script>
 5. JS: **i18n system** (TRANSLATIONS dict → applyLanguage → initLang) → feature detection → hero load animation → scroll observer → scroll handler → contact form AJAX → hamburger → cursor → 3D tilt → magnetic buttons
 
 Section backgrounds alternate dark/cream:
-- Hero `#0a0a0a` → Services `#f4f1e8` → Marquee gold → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Track Record `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
+- Hero `#0a0a0a` → Services `#f4f1e8` → Marquee `#0a0a0a` (dark bg, gold text) → How We Work `#0a0a0a` → About `#f4f1e8` → Why `#0a0a0a` → Track Record `#111111` → Contact `#f4f1e8` → Footer `#0a0a0a`
 
 **Assets at project root:**
 - `founder.png` — founder photo used in the About section (`loading="lazy"`)
@@ -59,7 +59,7 @@ Section backgrounds alternate dark/cream:
 
 ## Logo SVG
 
-The logo mark is an inline SVG: `viewBox="0 0 96 96"`, gold circle outline + 5 vertical bars (alternating white/gold). Used at three sizes — SM in navbar (`28×28`), XL animated in hero (`120×120`), XS in footer (`20×20`). The hero bars have individual `@keyframes` (`barBreath1`–`barBreath5`) with offset delays for an asynchronous breathing pulse.
+The logo mark is an inline SVG: `viewBox="0 0 96 96"`, gold circle outline + 5 vertical bars (alternating white/gold). Used at three sizes — SM in navbar (`28×28`), XL animated in hero (`210×210`, right column of two-column grid), XS in footer (`20×20`). The hero bars have individual `@keyframes` (`barBreath1`–`barBreath5`) with offset delays for an asynchronous breathing pulse.
 
 The wordmark pattern: `[` (gold, weight 300) + `arif` (white/#1a1a1a, weight 500) + `AI` (gold, weight 700) + `]` (gold, weight 300), with `solutions` in small uppercase spaced tracking below.
 
@@ -70,6 +70,9 @@ Two animation systems exist — keep their namespaces separate:
 | Prefix | Used for |
 |---|---|
 | `barBreath1`–`barBreath5` | Hero logo bar pulse |
+| `ringPulse` | Hero logo circle ring fade |
+| `orbFloat1`, `orbFloat2` | Hero background orbs (two orbs only — orb-3 removed) |
+| `dotDrift` | Hero dot grid background drift |
 | `scrollCueFade`, `scrollBounce` | Hero scroll cue |
 | `marqueeScroll` | Marquee ticker |
 | `ill*` (`illBar1–4`, `illLineTrace`, `illDotPulse`, `illSignalMove`, `illTypeDot`) | Service card background illustrations |
@@ -128,9 +131,20 @@ EN/BM language toggle implemented entirely in JS — no external libraries.
 - **Scroll spy:** `.nav-active` toggled on nav links. Sections tracked: `services`, `how-we-work`, `about`, `contact`
 - **Hero parallax:** `.hero-content` translates Y at 0.25× scroll, fades out — desktop only
 - **Custom cursor:** `#cursor-dot` (snaps) + `#cursor-ring` (0.12 lerp). `.cursor-hover` when over `a, button, .service-card, .pillar`. `body.cursor-ready` hides system cursor
+- **Hero parallax:** applies to `.hero-content` (the grid wrapper) — both `.hero-left` and `.hero-right` move together
 - **Cursor glow:** `--mouse-x` / `--mouse-y` on `:root` drive CSS radial gradients
 - **3D card tilt:** `.service-card` rotates ±14deg on mousemove — desktop only
 - **Magnetic buttons:** `.btn-primary` / `.btn-secondary` translate 25% of cursor offset — desktop only
+
+## Hero Section
+
+Two-column grid layout (`grid-template-columns: 1fr 320px`, `gap: 72px`):
+- **`.hero-left`** — left-aligned text: `h1.hero-headline`, `p.hero-sub`, `.hero-ctas`
+- **`.hero-right`** — centred animated logo SVG at `210×210px`
+
+On mobile (`≤767px`): collapses to single column, `.hero-right` gets `order: -1` (logo appears above text), everything re-centres. At `≤900px`: right column narrows to `240px`, logo to `160px`.
+
+The `.hero-scroll` cue is absolutely positioned outside both columns and is unaffected by the grid.
 
 ## Service Cards
 
@@ -165,11 +179,27 @@ HTML `id="testimonials"` is intentionally kept (section not in nav, but preserve
 
 Each stat: `.result-number` (large gold figure) → `.result-desc` → `.result-source` (gold uppercase, `opacity: 0.5`). Footer `.results-note` is italic, centred, muted. Numbers sourced from founder CV: $50M + $10M at ExxonMobil = $60M+. Replace with real client testimonials when available.
 
+## Why Choose Us Section
+
+Editorial list layout (`.pillars-list`) — not a card grid. Each `.pillar` is a two-column item (`52px 1fr`) with a hairline border top/bottom. Structure within each pillar:
+- `.pillar-num` — `01` / `02` / `03` label (gold, low opacity)
+- `.pillar-body` — inner grid (`36px 1fr`): icon spans rows 1–2, title row 1, desc row 2
+
+Hover: border brightens, `.pillar-title` transitions to gold. No shimmer sweep, no translateY lift.
+
 ## Contact Form
 
 Formspree AJAX submission. Form ID: `mgoljdzp` — action URL: `https://formspree.io/f/mgoljdzp`. Submissions go to `arifin@arifaisolutions.com`.
 
+Field order: **Name → Email → Company → Message** (email before message). Two fields per row in the CSS grid except Message which spans full width (`form-field--full`).
+
 Floating label pattern: `.form-field` wraps `<input placeholder=" ">` + `<label>`, floated via `:placeholder-shown`. Success state: inline `.form-success` shown on 200 response; button restored on error.
+
+## `<head>` additions (beyond meta/OG tags)
+
+- `<meta name="theme-color" content="#0a0a0a">` — browser chrome colour on mobile
+- `<link rel="preconnect" href="https://fonts.googleapis.com">` + `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>` — must appear before the Google Fonts stylesheet link
+- `<script type="application/ld+json">` — Schema.org `ProfessionalService` structured data (name, url, email, address Melaka MY, founder, serviceType). Update if business details change.
 
 ## Analytics
 
@@ -178,6 +208,7 @@ Google Analytics 4 is wired into `<head>` — Measurement ID: `G-Y37N4RXFL1`. Bo
 ## Deployment
 
 - **Repo:** `https://github.com/arifin-arifaisolutions/arif-ai-solutions` (branch: `main`)
+- **Active feature branch:** `ui/premium-refinements` — UI polish work in progress, not yet merged to `main`
 - **Host:** Vercel (GitHub account: `arifin-arifaisolutions`) — auto-deploys on push to `main`, no build step
 - **Live domain:** `https://arifaisolutions.com` (SSL active, Grade A security headers)
 - **DNS (Squarespace Domains):** `A @ 216.198.79.1` + `CNAME www cname.vercel-dns.com`
@@ -188,3 +219,6 @@ Google Analytics 4 is wired into `<head>` — Measurement ID: `G-Y37N4RXFL1`. Bo
 - [ ] Submit `https://arifaisolutions.com/sitemap.xml` to Google Search Console
 - [ ] Replace Track Record section stats with real client testimonials when available
 - [ ] Add Content-Security-Policy header to `vercel.json` once CSS/JS are externalised (optional hardening — would move grade from A → A+)
+- [ ] **KIV — LinkedIn:** Wire footer social icon (`href="#"`) to real LinkedIn URL once profile is created
+- [ ] **KIV — WhatsApp:** Add WhatsApp link to Contact section + footer once business number is set up
+- [ ] **KIV — Hero marquee:** Consider item 5 from UI review (hero left-alignment) — `ui/premium-refinements` branch has a two-column hero; review before merging to `main`
