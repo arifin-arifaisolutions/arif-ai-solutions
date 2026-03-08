@@ -26,6 +26,9 @@
 
 <!-- SVG Favicon (inline logo mark as data URI) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 96 96' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='96' height='96' rx='48' fill='%230a0a0a'/%3E%3Ccircle cx='48' cy='48' r='46' stroke='%23c8a800' stroke-width='1.5'/%3E%3Cline x1='26' y1='62' x2='26' y2='34' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='38' y1='68' x2='38' y2='28' stroke='%23c8a800' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='50' y1='58' x2='50' y2='38' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='62' y1='68' x2='62' y2='28' stroke='%23c8a800' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='74' y1='62' x2='74' y2='34' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- Google Analytics 4 -->
@@ -35,6 +38,46 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y37N4RXFL1');
+</script>
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "arifAI Solutions",
+  "url": "https://arifaisolutions.com",
+  "logo": "https://arifaisolutions.com/og-image.jpg",
+  "image": "https://arifaisolutions.com/og-image.jpg",
+  "description": "arifAI Solutions builds custom AI applications, automations, and intelligent agents tailored to how your business actually works. Practical AI for SMEs in Malaysia.",
+  "email": "arifin@arifaisolutions.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Melaka",
+    "addressCountry": "MY"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Malaysia"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Qamarul Arifin bin Abd Manan",
+    "jobTitle": "Founder & Principal Consultant"
+  },
+  "serviceType": [
+    "Custom AI Applications",
+    "AI Consulting",
+    "Automation & Integration",
+    "AI Agents & Chatbots"
+  ],
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Data Science",
+    "Business Automation",
+    "AI Strategy"
+  ]
+}
 </script>
 <style>
 /* ── Reset & Base ── */
@@ -286,7 +329,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   position: relative;
   overflow: hidden;
   padding: 120px 24px 80px;
@@ -334,13 +376,6 @@ body {
   bottom: -40px; right: -40px;
   animation: orbFloat2 18s ease-in-out infinite 3s;
 }
-.hero-orb-3 {
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(200,140,0,0.08) 0%, transparent 70%);
-  top: 55%; left: 55%;
-  animation: orbFloat3 11s ease-in-out infinite 1.5s;
-}
-
 @keyframes orbFloat1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%       { transform: translate(50px, -40px) scale(1.05); }
@@ -351,27 +386,35 @@ body {
   40%       { transform: translate(-60px, -30px) scale(1.08); }
   70%       { transform: translate(30px, 20px) scale(0.96); }
 }
-@keyframes orbFloat3 {
-  0%, 100% { transform: translate(0, 0); }
-  50%       { transform: translate(-40px, -50px); }
-}
 
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 760px;
+  max-width: 1120px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 72px;
+  align-items: center;
+}
+.hero-left {
+  text-align: left;
+}
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* XL animated logo for hero */
 .hero-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 48px;
 }
 .hero-logo svg {
-  width: 120px;
-  height: 120px;
-  filter: drop-shadow(0 0 24px rgba(200,168,0,0.25));
+  width: 210px;
+  height: 210px;
+  filter: drop-shadow(0 0 48px rgba(200,168,0,0.3));
 }
 
 /* Logo circle ring pulse */
@@ -419,7 +462,7 @@ body {
   font-size: clamp(40px, 6vw, 64px);
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--white);
   margin-bottom: 24px;
 }
@@ -439,14 +482,14 @@ body {
   font-weight: 400;
   line-height: 1.7;
   color: var(--muted-cream);
-  max-width: 600px;
-  margin: 0 auto 48px;
+  max-width: 560px;
+  margin: 0 0 48px;
 }
 
 .hero-ctas {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 24px;
   flex-wrap: wrap;
 }
@@ -502,6 +545,25 @@ body {
 }
 @keyframes scrollCueFade {
   to { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr 240px;
+    gap: 48px;
+  }
+  .hero-logo svg { width: 160px; height: 160px; }
+}
+@media (max-width: 767px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-left { text-align: center; }
+  .hero-right { order: -1; }
+  .hero-logo svg { width: 96px; height: 96px; filter: drop-shadow(0 0 24px rgba(200,168,0,0.25)); }
+  .hero-sub { margin: 0 auto 48px; }
+  .hero-ctas { justify-content: center; }
 }
 
 /* ── Custom cursor ── */
@@ -565,27 +627,6 @@ body.cursor-ready .pillar { cursor: none; }
   overflow: hidden;
   transform-style: preserve-3d;
   will-change: transform;
-}
-/* Shimmer sweep on hover */
-.service-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(200,168,0,0.07) 50%,
-    transparent 100%
-  );
-  transform: skewX(-15deg);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-.service-card:hover::after {
-  left: 160%;
 }
 .service-card:hover {
   box-shadow: 0 4px 40px rgba(200,168,0,0.18);
@@ -695,7 +736,9 @@ body.cursor-ready .pillar { cursor: none; }
    MARQUEE TICKER
 ══════════════════════════════════════ */
 #marquee {
-  background: var(--gold);
+  background: var(--dark);
+  border-top: 1px solid rgba(200,168,0,0.15);
+  border-bottom: 1px solid rgba(200,168,0,0.15);
   padding: 14px 0;
   overflow: hidden;
   white-space: nowrap;
@@ -710,18 +753,18 @@ body.cursor-ready .pillar { cursor: none; }
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--dark);
+  color: var(--gold);
   padding: 0 32px;
 }
 .marquee-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.35);
+  background: rgba(200,168,0,0.35);
   flex-shrink: 0;
 }
 @keyframes marqueeScroll {
@@ -940,72 +983,71 @@ body.cursor-ready .pillar { cursor: none; }
   opacity: 0.035;
 }
 
-.pillars-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  counter-reset: pillar-count;
+/* — Editorial pillar list — */
+.pillars-list {
+  display: flex;
+  flex-direction: column;
 }
 .pillar {
-  padding: 36px 28px;
-  border: 1px solid rgba(200,168,0,0.12);
-  border-radius: 8px;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.25s;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 40px;
+  padding: 52px 0;
+  border-bottom: 1px solid rgba(200,168,0,0.1);
+  transition: border-color 0.3s;
   position: relative;
-  overflow: hidden;
-  counter-increment: pillar-count;
+  cursor: default;
 }
-.pillar::before {
-  content: "0" counter(pillar-count);
-  position: absolute; top: -12px; right: 12px;
-  font-size: 96px; font-weight: 700; line-height: 1;
-  color: var(--gold); opacity: 0.05; pointer-events: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  z-index: 0;
+.pillar:first-child { border-top: 1px solid rgba(200,168,0,0.1); }
+.pillar:hover { border-color: rgba(200,168,0,0.35); }
+.pillar-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.45;
+  padding-top: 5px;
 }
-.pillar::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(200,168,0,0.05) 50%,
-    transparent 100%
-  );
-  transform: skewX(-15deg);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-.pillar:hover::after { left: 160%; }
-.pillar:hover {
-  border-color: rgba(200,168,0,0.4);
-  box-shadow: 0 4px 32px rgba(200,168,0,0.1);
-  transform: translateY(-3px);
+.pillar-body {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 20px;
+  row-gap: 12px;
+  align-items: start;
 }
 .pillar-icon {
+  grid-column: 1;
+  grid-row: 1 / 3;
   width: 36px;
   height: 36px;
   color: var(--gold);
-  margin-bottom: 20px;
+  margin-top: 2px;
 }
 .pillar-title {
-  font-size: 18px;
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 22px;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 10px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  transition: color 0.25s;
 }
+.pillar:hover .pillar-title { color: var(--gold); }
 .pillar-desc {
+  grid-column: 2;
+  grid-row: 2;
   font-size: 15px;
   color: var(--muted-cream);
-  line-height: 1.7;
+  line-height: 1.75;
+  max-width: 560px;
 }
 
 @media (max-width: 767px) {
-  .pillars-row { grid-template-columns: 1fr; gap: 20px; }
+  .pillar { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+  .pillar-body { grid-template-columns: 28px 1fr; column-gap: 14px; }
+  .pillar-icon { width: 28px; height: 28px; }
+  .pillar-title { font-size: 18px; }
 }
 
 /* ══════════════════════════════════════
@@ -1014,6 +1056,10 @@ body.cursor-ready .pillar { cursor: none; }
 #contact {
   background: var(--cream);
   text-align: center;
+  padding: 120px 24px;
+}
+@media (max-width: 767px) {
+  #contact { padding: 80px 20px; }
 }
 .contact-inner {
   max-width: 680px;
@@ -1151,18 +1197,7 @@ body.cursor-ready .pillar { cursor: none; }
   transition: background 0.3s;
 }
 .result-stat:last-child { border-right: none; }
-.result-stat::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 55%; height: 100%;
-  background: linear-gradient(105deg, transparent 0%, rgba(200,168,0,0.04) 50%, transparent 100%);
-  transform: skewX(-15deg);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-.result-stat:hover::after { left: 160%; }
-.result-stat:hover { background: rgba(200,168,0,0.03); }
+.result-stat:hover { background: rgba(200,168,0,0.04); }
 .result-number {
   font-size: clamp(52px, 6vw, 76px);
   font-weight: 700;
@@ -1357,42 +1392,47 @@ body.cursor-ready .pillar { cursor: none; }
   <!-- Glowing orbs -->
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-orb hero-orb-3"></div>
 
   <div class="hero-content">
-    <div class="hero-logo fade-in">
-      <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="arifAI Solutions logo">
-        <circle class="hero-ring" cx="48" cy="48" r="46" stroke="#c8a800" stroke-width="1.5"/>
-        <line class="hero-bar hero-bar-1" x1="26" y1="62" x2="26" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/>
-        <line class="hero-bar hero-bar-2" x1="38" y1="68" x2="38" y2="28" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
-        <line class="hero-bar hero-bar-3" x1="50" y1="58" x2="50" y2="38" stroke="white" stroke-width="3" stroke-linecap="round"/>
-        <line class="hero-bar hero-bar-4" x1="62" y1="68" x2="62" y2="28" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
-        <line class="hero-bar hero-bar-5" x1="74" y1="62" x2="74" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/>
-      </svg>
+
+    <div class="hero-left">
+      <h1 class="hero-headline" data-i18n-headline="hero.headline" data-i18n-attr-label="hero.headline.aria" aria-label="Wise AI. Built for Your Business.">
+        <span class="hero-word" style="--wd:0s"><em>Wise</em></span>
+        <span class="hero-word" style="--wd:0.08s"><em>AI.</em></span>
+        <span class="hero-word" style="--wd:0.16s">Built</span>
+        <span class="hero-word" style="--wd:0.24s">for</span><br aria-hidden="true">
+        <span class="hero-word" style="--wd:0.32s">Your</span>
+        <span class="hero-word" style="--wd:0.40s">Business.</span>
+      </h1>
+
+      <p class="hero-sub fade-in" style="transition-delay:1.0s" data-i18n="hero.sub">
+        arifAI Solutions builds custom AI applications, automations, and intelligent agents — tailored to how your business actually works.
+      </p>
+
+      <div class="hero-ctas fade-in" style="transition-delay:1.15s">
+        <a href="#contact" class="btn-primary" data-i18n="hero.cta.primary">Start a Project</a>
+        <a href="#services" class="btn-secondary">
+          <span data-i18n="hero.cta.secondary">See Our Services</span>
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </div>
 
-    <h1 class="hero-headline" data-i18n-headline="hero.headline" data-i18n-attr-label="hero.headline.aria" aria-label="Wise AI. Built for Your Business.">
-      <span class="hero-word" style="--wd:0s"><em>Wise</em></span>
-      <span class="hero-word" style="--wd:0.08s"><em>AI.</em></span>
-      <span class="hero-word" style="--wd:0.16s">Built</span>
-      <span class="hero-word" style="--wd:0.24s">for</span><br aria-hidden="true">
-      <span class="hero-word" style="--wd:0.32s">Your</span>
-      <span class="hero-word" style="--wd:0.40s">Business.</span>
-    </h1>
-
-    <p class="hero-sub fade-in" style="transition-delay:1.0s" data-i18n="hero.sub">
-      arifAI Solutions builds custom AI applications, automations, and intelligent agents — tailored to how your business actually works.
-    </p>
-
-    <div class="hero-ctas fade-in" style="transition-delay:1.15s">
-      <a href="#contact" class="btn-primary" data-i18n="hero.cta.primary">Start a Project</a>
-      <a href="#services" class="btn-secondary">
-        <span data-i18n="hero.cta.secondary">See Our Services</span>
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <div class="hero-right">
+      <div class="hero-logo fade-in">
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="arifAI Solutions logo">
+          <circle class="hero-ring" cx="48" cy="48" r="46" stroke="#c8a800" stroke-width="1.5"/>
+          <line class="hero-bar hero-bar-1" x1="26" y1="62" x2="26" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <line class="hero-bar hero-bar-2" x1="38" y1="68" x2="38" y2="28" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+          <line class="hero-bar hero-bar-3" x1="50" y1="58" x2="50" y2="38" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <line class="hero-bar hero-bar-4" x1="62" y1="68" x2="62" y2="28" stroke="#c8a800" stroke-width="3" stroke-linecap="round"/>
+          <line class="hero-bar hero-bar-5" x1="74" y1="62" x2="74" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/>
         </svg>
-      </a>
+      </div>
     </div>
+
   </div>
 
   <div class="hero-scroll" aria-hidden="true">
@@ -1649,34 +1689,43 @@ body.cursor-ready .pillar { cursor: none; }
     <p class="section-label fade-in" data-i18n="why.label">Why arifAI</p>
     <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="why.heading">The difference you'll feel<br>from day one.</h2>
 
-    <div class="pillars-row">
+    <div class="pillars-list">
 
       <div class="pillar fade-in">
-        <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 18C4 10.268 10.268 4 18 4s14 6.268 14 14-6.268 14-14 14S4 25.732 4 18z" stroke="#c8a800" stroke-width="1.5"/>
-          <path d="M12 18l4 4 8-8" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="pillar-title" data-i18n="why.pillar1.title">Wisdom over hype</div>
-        <div class="pillar-desc" data-i18n="why.pillar1.desc">We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.</div>
+        <span class="pillar-num">01</span>
+        <div class="pillar-body">
+          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 18C4 10.268 10.268 4 18 4s14 6.268 14 14-6.268 14-14 14S4 25.732 4 18z" stroke="#c8a800" stroke-width="1.5"/>
+            <path d="M12 18l4 4 8-8" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="pillar-title" data-i18n="why.pillar1.title">Wisdom over hype</div>
+          <div class="pillar-desc" data-i18n="why.pillar1.desc">We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.</div>
+        </div>
       </div>
 
       <div class="pillar fade-in fade-in-delay-1">
-        <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 4l12 6v8c0 7-5 12-12 14C11 30 6 25 6 18v-8l12-6z" stroke="#c8a800" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M13 18l3 3 7-7" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="pillar-title" data-i18n="why.pillar2.title">Your partner, not your vendor</div>
-        <div class="pillar-desc" data-i18n="why.pillar2.desc">From strategy to launch to long-term support, we measure success by your outcomes — not just deliverables.</div>
+        <span class="pillar-num">02</span>
+        <div class="pillar-body">
+          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4l12 6v8c0 7-5 12-12 14C11 30 6 25 6 18v-8l12-6z" stroke="#c8a800" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M13 18l3 3 7-7" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="pillar-title" data-i18n="why.pillar2.title">Your partner, not your vendor</div>
+          <div class="pillar-desc" data-i18n="why.pillar2.desc">From strategy to launch to long-term support, we measure success by your outcomes — not just deliverables.</div>
+        </div>
       </div>
 
       <div class="pillar fade-in fade-in-delay-2">
-        <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="12" r="5" stroke="#c8a800" stroke-width="1.5"/>
-          <path d="M8 30c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M24 8l3-2M12 8l-3-2" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-        <div class="pillar-title" data-i18n="why.pillar3.title">Built for SMEs, not enterprises</div>
-        <div class="pillar-desc" data-i18n="why.pillar3.desc">No bloated playbooks. We understand the constraints of real businesses and build accordingly.</div>
+        <span class="pillar-num">03</span>
+        <div class="pillar-body">
+          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="12" r="5" stroke="#c8a800" stroke-width="1.5"/>
+            <path d="M8 30c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M24 8l3-2M12 8l-3-2" stroke="#c8a800" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+          <div class="pillar-title" data-i18n="why.pillar3.title">Built for SMEs, not enterprises</div>
+          <div class="pillar-desc" data-i18n="why.pillar3.desc">No bloated playbooks. We understand the constraints of real businesses and build accordingly.</div>
+        </div>
       </div>
 
     </div>
@@ -1693,8 +1742,7 @@ body.cursor-ready .pillar { cursor: none; }
 <section id="testimonials" class="section-pad">
   <div class="grain" aria-hidden="true"></div>
   <div class="container" style="position:relative;z-index:1;">
-    <p class="section-label fade-in" data-i18n="track.label">Track Record</p>
-    <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="track.heading">Enterprise-grade results.<br>Now within your reach.</h2>
+    <h2 class="section-heading fade-in" data-i18n-html="track.heading">Enterprise-grade results.<br>Now within your reach.</h2>
 
     <div class="results-grid">
 
@@ -1744,16 +1792,16 @@ body.cursor-ready .pillar { cursor: none; }
             <label for="cf-name" data-i18n="contact.name.label">Your name</label>
           </div>
           <div class="form-field">
+            <input type="email" id="cf-email" name="email" required placeholder=" ">
+            <label for="cf-email" data-i18n="contact.email.label">Your email</label>
+          </div>
+          <div class="form-field">
             <input type="text" id="cf-company" name="company" placeholder=" ">
             <label for="cf-company" data-i18n="contact.company.label">Business / Company</label>
           </div>
           <div class="form-field form-field--full">
             <textarea id="cf-message" name="body" rows="4" required placeholder=" "></textarea>
             <label for="cf-message" data-i18n="contact.message.label">How can we help?</label>
-          </div>
-          <div class="form-field">
-            <input type="email" id="cf-email" name="email" required placeholder=" ">
-            <label for="cf-email" data-i18n="contact.email.label">Your email</label>
           </div>
           <button type="submit" class="btn-primary form-submit" data-i18n="contact.submit">Send Message</button>
         </form>
