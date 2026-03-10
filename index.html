@@ -134,6 +134,8 @@ body {
     transition-duration: 0.01ms !important;
   }
   .hero-word { clip-path: none !important; }
+  .section-word { clip-path: none !important; }
+  .pillar.fade-in { clip-path: none !important; }
   #cursor-dot, #cursor-ring, #scroll-bar { display: none !important; }
 }
 
@@ -231,7 +233,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.15s ease;
 }
 .nav-links a:hover { color: var(--white); }
 
@@ -404,7 +406,42 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
+
+/* ── Hero logo ambient glow ── */
+.hero-logo-glow {
+  position: absolute;
+  width: 280px; height: 280px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(200,168,0,0.18) 0%, transparent 70%);
+  filter: blur(32px);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.hero-logo { position: relative; z-index: 1; }
+
+/* ── Hero concentric ring frame ── */
+.hero-ring-frame {
+  position: absolute;
+  width: 480px; height: 480px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hrf-ring-2 {
+  animation: hrfSpin1 60s linear infinite;
+  transform-origin: 240px 240px;
+}
+.hrf-ring-3 {
+  animation: hrfSpin2 90s linear infinite reverse;
+  transform-origin: 240px 240px;
+}
+@keyframes hrfSpin1 { to { transform: rotate(360deg); } }
+@keyframes hrfSpin2 { to { transform: rotate(360deg); } }
 
 /* XL animated logo for hero */
 .hero-logo {
@@ -477,6 +514,14 @@ body {
 }
 .hero-word.revealed { clip-path: inset(0 0% 0 0); }
 
+/* ── Section heading word reveal ── */
+.section-word {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.6s cubic-bezier(0.22,1,0.36,1) var(--sw-delay, 0s);
+}
+.section-word.section-word-revealed { clip-path: inset(0 0% 0 0); }
+
 .hero-sub {
   font-size: clamp(16px, 2.2vw, 18px);
   font-weight: 400;
@@ -509,7 +554,20 @@ body {
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   display: inline-block;
   box-shadow: 0 0 0 rgba(200,168,0,0);
+  position: relative;
+  overflow: hidden;
 }
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+  transform: translateX(-200%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+.btn-primary:hover::after { transform: translateX(300%); }
 .btn-primary:hover {
   background: #d9b700;
   transform: translateY(-2px);
@@ -553,6 +611,7 @@ body {
     gap: 48px;
   }
   .hero-logo svg { width: 160px; height: 160px; }
+  .hero-ring-frame { display: none; }
 }
 @media (max-width: 767px) {
   .hero-content {
@@ -588,6 +647,10 @@ body.cursor-ready, body.cursor-ready a,
 body.cursor-ready button, body.cursor-ready .service-card,
 body.cursor-ready .pillar { cursor: none; }
 
+/* ── Cursor on cream sections ── */
+body.on-cream #cursor-dot { background: #1a1a1a; }
+body.on-cream #cursor-ring { border-color: #1a1a1a; }
+
 /* ══════════════════════════════════════
    SERVICES
 ══════════════════════════════════════ */
@@ -601,7 +664,22 @@ body.cursor-ready .pillar { cursor: none; }
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+.section-label::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease 0.1s;
+  flex-shrink: 0;
+}
+.section-label.visible::before { transform: scaleX(1); }
 .section-heading {
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 700;
@@ -619,6 +697,7 @@ body.cursor-ready .pillar { cursor: none; }
 .service-card {
   background: var(--white);
   border: 1px solid var(--gold-dim);
+  border-top: 2px solid rgba(200,168,0,0.3);
   border-radius: 8px;
   padding: 32px 24px;
   transition: box-shadow 0.3s, border-color 0.3s, transform 0.25s;
@@ -628,6 +707,16 @@ body.cursor-ready .pillar { cursor: none; }
   transform-style: preserve-3d;
   will-change: transform;
 }
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 0; right: 100%;
+  height: 2px;
+  background: var(--gold);
+  transition: right 0.5s cubic-bezier(0.22,1,0.36,1);
+  pointer-events: none;
+}
+.service-card.visible::before { right: 0; }
 .service-card:hover {
   box-shadow: 0 4px 40px rgba(200,168,0,0.18);
   border-color: rgba(200,168,0,0.5);
@@ -780,74 +869,98 @@ body.cursor-ready .pillar { cursor: none; }
 }
 #how-we-work .section-heading { color: var(--white); }
 
-.steps-row {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
-  gap: 0;
-  position: relative;
-  align-items: start;
-}
-.connector {
+/* ── Vertical timeline ── */
+.steps-timeline {
   display: flex;
-  align-items: flex-start;
-  padding-top: 27px;
-  min-width: 60px;
-}
-.process-connector svg { width: 100%; overflow: visible; }
-.process-connector path {
-  stroke: var(--gold); stroke-width: 1; fill: none;
-  stroke-dasharray: 200; stroke-dashoffset: 200;
-  transition: stroke-dashoffset 0.8s ease 0.3s;
-}
-.process-connector.visible path { stroke-dashoffset: 0; }
-
-.step {
-  padding: 0 32px;
+  flex-direction: column;
+  padding-left: 52px;
+  margin-top: 64px;
   position: relative;
 }
-.step:first-child { padding-left: 0; }
-.step:last-child  { padding-right: 0; }
-
-.step-number {
-  width: 56px;
-  height: 56px;
+.timeline-line {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(200,168,0,0.15);
+  pointer-events: none;
+}
+.timeline-line-fill {
+  width: 100%;
+  height: 0%;
+  background: var(--gold);
+  transition: height 0.6s ease;
+}
+.timeline-step {
+  position: relative;
+  padding: 0 0 64px 40px;
+}
+.timeline-step:last-child { padding-bottom: 0; }
+.timeline-node {
+  position: absolute;
+  left: -52px;
+  top: 0;
+  width: 36px; height: 36px;
   border: 1px solid var(--gold);
   border-radius: 50%;
+  background: var(--dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  transition: box-shadow 0.3s, background 0.3s;
+  z-index: 1;
+}
+.timeline-node::after {
+  content: '';
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.timeline-step.visible .timeline-node {
+  box-shadow: 0 0 20px rgba(200,168,0,0.3);
+  background: rgba(200,168,0,0.06);
+}
+.timeline-step.visible .timeline-node::after { opacity: 1; }
+.step-ghost-num {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(80px, 12vw, 120px);
   font-weight: 700;
   color: var(--gold);
-  margin-bottom: 28px;
-  background: var(--dark);
-  position: relative;
-  z-index: 1;
-  transition: background 0.3s, box-shadow 0.3s;
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.03em;
 }
-.step:hover .step-number {
-  background: rgba(200,168,0,0.08);
-  box-shadow: 0 0 20px rgba(200,168,0,0.2);
-}
-
 .step-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   letter-spacing: -0.01em;
 }
 .step-desc {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--muted-cream);
-  line-height: 1.7;
+  line-height: 1.75;
+  max-width: 560px;
 }
 
 @media (max-width: 767px) {
-  .steps-row { grid-template-columns: 1fr; gap: 40px; }
-  .connector { display: none; }
-  .step { padding: 0; }
+  .steps-timeline { padding-left: 44px; margin-top: 48px; }
+  .timeline-node { width: 28px; height: 28px; left: -42px; top: 2px; }
+  .timeline-node::after { width: 8px; height: 8px; }
+  .timeline-line { left: 14px; }
+  .timeline-step { padding: 0 0 48px 32px; }
+  .step-ghost-num { display: none; }
+  .step-title { font-size: 20px; }
 }
 
 /* ══════════════════════════════════════
@@ -873,8 +986,15 @@ body.cursor-ready .pillar { cursor: none; }
 .about-photo-frame {
   width: 100%;
   max-width: 360px;
-  border-left: 3px solid var(--gold);
+  position: relative;
   overflow: hidden;
+}
+.about-frame-marks {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
 }
 .about-photo {
   width: 100%;
@@ -990,24 +1110,55 @@ body.cursor-ready .pillar { cursor: none; }
 }
 .pillar {
   display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 40px;
+  grid-template-columns: 1fr;
+  gap: 0;
   padding: 52px 0;
   border-bottom: 1px solid rgba(200,168,0,0.1);
   transition: border-color 0.3s;
   position: relative;
   cursor: default;
+  overflow: hidden;
 }
 .pillar:first-child { border-top: 1px solid rgba(200,168,0,0.1); }
 .pillar:hover { border-color: rgba(200,168,0,0.35); }
+
+/* Clip-path entrance overrides fade-in defaults */
+.pillar.fade-in {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.pillar.fade-in.visible { clip-path: inset(0 0% 0 0); }
+.pillar.fade-in.fade-in-delay-1 { transition-delay: 0.15s; }
+.pillar.fade-in.fade-in-delay-2 { transition-delay: 0.30s; }
+
+/* Hover gold sweep */
+.pillar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(200,168,0,0.05) 0%, transparent 60%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+.pillar:hover::after { transform: scaleX(1); }
+
 .pillar-num {
-  font-size: 11px;
+  font-size: 96px;
+  opacity: 0.05;
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  line-height: 1;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--gold);
-  opacity: 0.45;
-  padding-top: 5px;
+  letter-spacing: -0.03em;
+  user-select: none;
 }
 .pillar-body {
   display: grid;
@@ -1023,7 +1174,9 @@ body.cursor-ready .pillar { cursor: none; }
   height: 36px;
   color: var(--gold);
   margin-top: 2px;
+  transition: transform 0.3s ease;
 }
+.pillar:hover .pillar-icon { transform: scale(1.1); }
 .pillar-title {
   grid-column: 2;
   grid-row: 1;
@@ -1044,10 +1197,11 @@ body.cursor-ready .pillar { cursor: none; }
 }
 
 @media (max-width: 767px) {
-  .pillar { grid-template-columns: 1fr; gap: 16px; padding: 36px 0; }
+  .pillar { padding: 36px 0; }
   .pillar-body { grid-template-columns: 28px 1fr; column-gap: 14px; }
   .pillar-icon { width: 28px; height: 28px; }
   .pillar-title { font-size: 18px; }
+  .pillar-num { font-size: 64px; left: -8px; }
 }
 
 /* ══════════════════════════════════════
@@ -1119,6 +1273,10 @@ body.cursor-ready .pillar { cursor: none; }
 .contact-form {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
   max-width: 640px; margin: 48px auto 0; text-align: left;
+  border: 1px solid rgba(26,26,26,0.1);
+  padding: 40px 40px 32px;
+  box-shadow: inset 0 1px 0 rgba(26,26,26,0.06),
+              inset 0 -1px 0 rgba(26,26,26,0.04);
 }
 .form-field { position: relative; }
 .form-field--full { grid-column: 1 / -1; }
@@ -1131,8 +1289,19 @@ body.cursor-ready .pillar { cursor: none; }
   resize: none;
 }
 .form-field input:focus, .form-field textarea:focus {
-  border-bottom-color: var(--gold);
+  border-bottom-color: transparent;
 }
+.form-field::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 1.5px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+  pointer-events: none;
+}
+.form-field:focus-within::after { width: 100%; }
 .form-field label {
   position: absolute; top: 8px; left: 0; font-size: 13px;
   color: var(--muted-dark); pointer-events: none;
@@ -1153,7 +1322,7 @@ body.cursor-ready .pillar { cursor: none; }
 }
 .contact-alt a:hover { text-decoration: underline; }
 @media (max-width: 767px) {
-  .contact-form { grid-template-columns: 1fr; }
+  .contact-form { grid-template-columns: 1fr; padding: 24px 0; }
 }
 
 /* Form success state */
@@ -1198,14 +1367,41 @@ body.cursor-ready .pillar { cursor: none; }
 }
 .result-stat:last-child { border-right: none; }
 .result-stat:hover { background: rgba(200,168,0,0.04); }
+.result-stat::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80%; height: 60%;
+  background: radial-gradient(ellipse, rgba(200,168,0,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+.result-stat:hover::before { opacity: 1; }
+.result-stat > * { position: relative; z-index: 1; }
 .result-number {
-  font-size: clamp(52px, 6vw, 76px);
+  font-size: clamp(60px, 7vw, 88px);
   font-weight: 700;
   color: var(--gold);
   letter-spacing: -0.03em;
   line-height: 1;
   margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
 }
+.result-number::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease 0.3s;
+}
+.result-number.counted::after { transform: scaleX(1); }
 .result-desc {
   font-size: 15px;
   font-weight: 400;
@@ -1421,6 +1617,33 @@ body.cursor-ready .pillar { cursor: none; }
     </div>
 
     <div class="hero-right">
+      <div class="hero-ring-frame" aria-hidden="true">
+        <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" width="480" height="480">
+          <!-- Outer ring — static -->
+          <circle cx="240" cy="240" r="238" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+          <!-- Middle ring — dashed, slow rotation, 12 tick marks -->
+          <g class="hrf-ring-2">
+            <circle cx="240" cy="240" r="188" stroke="#c8a800" stroke-width="0.6" stroke-dasharray="4 8" opacity="0.09"/>
+            <line x1="240" y1="52" x2="240" y2="44" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="334" y1="78.2" x2="338" y2="71.1" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="401.8" y1="146" x2="408.9" y2="142" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="428" y1="240" x2="436" y2="240" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="401.8" y1="334" x2="408.9" y2="338" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="334" y1="401.8" x2="338" y2="408.9" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="240" y1="428" x2="240" y2="436" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="146" y1="401.8" x2="142" y2="408.9" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="78.2" y1="334" x2="71.1" y2="338" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="52" y1="240" x2="44" y2="240" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="78.2" y1="146" x2="71.1" y2="142" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+            <line x1="146" y1="78.2" x2="142" y2="71.1" stroke="#c8a800" stroke-width="0.8" opacity="0.18"/>
+          </g>
+          <!-- Inner ring — dashed, counter-rotation -->
+          <g class="hrf-ring-3">
+            <circle cx="240" cy="240" r="138" stroke="#c8a800" stroke-width="0.6" stroke-dasharray="2 10" opacity="0.05"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hero-logo-glow" aria-hidden="true"></div>
       <div class="hero-logo fade-in">
         <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="arifAI Solutions logo">
           <circle class="hero-ring" cx="48" cy="48" r="46" stroke="#c8a800" stroke-width="1.5"/>
@@ -1431,6 +1654,7 @@ body.cursor-ready .pillar { cursor: none; }
           <line class="hero-bar hero-bar-5" x1="74" y1="62" x2="74" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/>
         </svg>
       </div>
+
     </div>
 
   </div>
@@ -1605,30 +1829,28 @@ body.cursor-ready .pillar { cursor: none; }
     <p class="section-label fade-in" style="color: var(--gold)" data-i18n="hww.label">Our Process</p>
     <h2 class="section-heading fade-in fade-in-delay-1" data-i18n="hww.heading">How We Work</h2>
 
-    <div class="steps-row">
+    <div class="steps-timeline">
+      <div class="timeline-line" aria-hidden="true">
+        <div class="timeline-line-fill"></div>
+      </div>
 
-      <div class="step fade-in">
-        <div class="step-number">1</div>
+      <div class="timeline-step fade-in">
+        <div class="step-ghost-num" aria-hidden="true">01</div>
+        <div class="timeline-node" aria-hidden="true"></div>
         <div class="step-title" data-i18n="hww.step1.title">Understand</div>
         <div class="step-desc" data-i18n="hww.step1.desc">We listen first. Deep dive into your business, your challenges, and the goals that matter most to you.</div>
       </div>
 
-      <div class="connector process-connector fade-in">
-        <svg viewBox="0 0 200 2"><path d="M0 1 L200 1"/></svg>
-      </div>
-
-      <div class="step fade-in fade-in-delay-1">
-        <div class="step-number">2</div>
+      <div class="timeline-step fade-in fade-in-delay-1">
+        <div class="step-ghost-num" aria-hidden="true">02</div>
+        <div class="timeline-node" aria-hidden="true"></div>
         <div class="step-title" data-i18n="hww.step2.title">Build</div>
         <div class="step-desc" data-i18n="hww.step2.desc">We design and develop a tailored AI solution, iterating closely with you every step of the way.</div>
       </div>
 
-      <div class="connector process-connector fade-in fade-in-delay-1">
-        <svg viewBox="0 0 200 2"><path d="M0 1 L200 1"/></svg>
-      </div>
-
-      <div class="step fade-in fade-in-delay-2">
-        <div class="step-number">3</div>
+      <div class="timeline-step fade-in fade-in-delay-2">
+        <div class="step-ghost-num" aria-hidden="true">03</div>
+        <div class="timeline-node" aria-hidden="true"></div>
         <div class="step-title" data-i18n="hww.step3.title">Deploy &amp; Support</div>
         <div class="step-desc" data-i18n="hww.step3.desc">We launch, measure, and continuously improve your solution — long after the first day goes live.</div>
       </div>
@@ -1647,6 +1869,12 @@ body.cursor-ready .pillar { cursor: none; }
 
       <div class="about-photo-side fade-in">
         <div class="about-photo-frame">
+          <svg class="about-frame-marks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,14 L0,0 L14,0"       stroke="#c8a800" stroke-width="0.8" fill="none"/>
+            <path d="M86,0 L100,0 L100,14"   stroke="#c8a800" stroke-width="0.8" fill="none"/>
+            <path d="M0,86 L0,100 L14,100"   stroke="#c8a800" stroke-width="0.8" fill="none"/>
+            <path d="M86,100 L100,100 L100,86" stroke="#c8a800" stroke-width="0.8" fill="none"/>
+          </svg>
           <img src="founder.png" loading="lazy" alt="Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions" class="about-photo" data-i18n-attr-alt="about.photo.alt">
         </div>
         <div class="about-founder-info">
@@ -1747,19 +1975,19 @@ body.cursor-ready .pillar { cursor: none; }
     <div class="results-grid">
 
       <div class="result-stat fade-in">
-        <div class="result-number" data-i18n="track.stat1.number">$60M+</div>
+        <div class="result-number" data-i18n="track.stat1.number" data-count-target="60" data-count-prefix="$" data-count-suffix="M+">$60M+</div>
         <div class="result-desc" data-i18n="track.stat1.desc">Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.</div>
         <div class="result-source" data-i18n="track.stat1.source">ExxonMobil &nbsp;·&nbsp; Data Scientist</div>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-1">
-        <div class="result-number" data-i18n="track.stat2.number">10+</div>
+        <div class="result-number" data-i18n="track.stat2.number" data-count-target="10" data-count-prefix="" data-count-suffix="+">10+</div>
         <div class="result-desc" data-i18n="track.stat2.desc">Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.</div>
         <div class="result-source" data-i18n="track.stat2.source">ExxonMobil &nbsp;·&nbsp; Global Operations</div>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-2">
-        <div class="result-number" data-i18n="track.stat3.number">13 yrs</div>
+        <div class="result-number" data-i18n="track.stat3.number" data-count-target="13" data-count-prefix="" data-count-suffix=" yrs">13 yrs</div>
         <div class="result-desc" data-i18n="track.stat3.desc">From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.</div>
         <div class="result-source" data-i18n="track.stat3.source">PETRONAS &nbsp;·&nbsp; ExxonMobil &nbsp;·&nbsp; AFED Digital</div>
       </div>
@@ -1886,9 +2114,13 @@ const TRANSLATIONS = {
     'hero.cta.primary':   'Start a Project',
     'hero.cta.secondary': 'See Our Services',
     'hero.scroll':        'Scroll',
+    'hero.chip.petronas': 'PETRONAS',
+    'hero.chip.exxon':    'ExxonMobil',
+    'hero.chip.yrs':      '13 yrs data sci',
+    'hero.chip.value':    '$60M+ optimised',
 
     'services.label':    'What We Do',
-    'services.heading':  'AI that fits your world —<br>not the other way around.',
+    'services.heading':  '<span class="section-word" style="--sw-delay:0s">AI</span> <span class="section-word" style="--sw-delay:0.1s">that</span> <span class="section-word" style="--sw-delay:0.2s">fits</span> <span class="section-word" style="--sw-delay:0.3s">your</span> <span class="section-word" style="--sw-delay:0.4s">world</span> —<br><span class="section-word" style="--sw-delay:0.5s">not</span> <span class="section-word" style="--sw-delay:0.6s">the</span> <span class="section-word" style="--sw-delay:0.7s">other</span> <span class="section-word" style="--sw-delay:0.8s">way</span> <span class="section-word" style="--sw-delay:0.9s">around.</span>',
     'services.card1.name': 'Custom AI Apps',
     'services.card1.desc': 'Bespoke applications built around your workflow — not generic tools retrofitted to your needs.',
     'services.card2.name': 'AI Consulting',
@@ -1917,13 +2149,13 @@ const TRANSLATIONS = {
     'hww.step3.desc':  'We launch, measure, and continuously improve your solution — long after the first day goes live.',
 
     'about.tag':       'About Us',
-    'about.heading':   'Enterprise expertise,<br>built for everyone.',
+    'about.heading':   '<span class="section-word" style="--sw-delay:0s">Enterprise</span> <span class="section-word" style="--sw-delay:0.1s">expertise,</span><br><span class="section-word" style="--sw-delay:0.2s">built</span> <span class="section-word" style="--sw-delay:0.3s">for</span> <span class="section-word" style="--sw-delay:0.4s">everyone.</span>',
     'about.subheading':'Built on wisdom. Delivered with care.',
     'about.photo.alt': 'Qamarul Arifin bin Abd Manan, Founder of arifAI Solutions',
     'about.text':      '<em>arif</em> is personal — it\'s a piece of my name, Arifin. But it also means <em>wise</em> in Bahasa Malaysia and Arabic. That double meaning captures exactly what I\'m here to build.<br><br>I spent 13 years as a data scientist and optimisation specialist at PETRONAS and ExxonMobil — building AI-powered systems that global energy companies run on. High-stakes, complex, and genuinely impactful work at scale.<br><br>What I kept seeing was the gap. The same capability optimising billion-dollar operations wasn\'t reaching the business owner down the street — the F&amp;B entrepreneur, the logistics SME, the independent professional who could transform their business with the right AI, but had no way in.<br><br><strong>arifAI Solutions exists to close that gap.</strong> Enterprise-grade thinking, without the enterprise price tag or complexity — for businesses in Melaka, across Malaysia, and beyond.',
 
     'why.label':       'Why arifAI',
-    'why.heading':     "The difference you'll feel<br>from day one.",
+    'why.heading':     '<span class="section-word" style="--sw-delay:0s">The</span> <span class="section-word" style="--sw-delay:0.1s">difference</span> <span class="section-word" style="--sw-delay:0.2s">you\'ll</span> <span class="section-word" style="--sw-delay:0.3s">feel</span><br><span class="section-word" style="--sw-delay:0.4s">from</span> <span class="section-word" style="--sw-delay:0.5s">day</span> <span class="section-word" style="--sw-delay:0.6s">one.</span>',
     'why.pillar1.title': 'Wisdom over hype',
     'why.pillar1.desc':  'We ask "should you?" before "how do we?" — so you only invest in AI that actually fits your business.',
     'why.pillar2.title': 'Your partner, not your vendor',
@@ -1980,9 +2212,13 @@ const TRANSLATIONS = {
     'hero.cta.primary':   'Mulakan Projek',
     'hero.cta.secondary': 'Lihat Perkhidmatan',
     'hero.scroll':        'Tatal',
+    'hero.chip.petronas': 'PETRONAS',
+    'hero.chip.exxon':    'ExxonMobil',
+    'hero.chip.yrs':      '13 thn sains data',
+    'hero.chip.value':    '$60J+ dioptimumkan',
 
     'services.label':    'Apa Yang Kami Buat',
-    'services.heading':  'AI yang sesuai dengan dunia anda —<br>bukan sebaliknya.',
+    'services.heading':  '<span class="section-word" style="--sw-delay:0s">AI</span> <span class="section-word" style="--sw-delay:0.1s">yang</span> <span class="section-word" style="--sw-delay:0.2s">sesuai</span> <span class="section-word" style="--sw-delay:0.3s">dengan</span> <span class="section-word" style="--sw-delay:0.4s">dunia</span> <span class="section-word" style="--sw-delay:0.5s">anda</span> —<br><span class="section-word" style="--sw-delay:0.6s">bukan</span> <span class="section-word" style="--sw-delay:0.7s">sebaliknya.</span>',
     'services.card1.name': 'Aplikasi AI Khas',
     'services.card1.desc': 'Aplikasi khas yang dibina mengikut aliran kerja anda — bukan alat generik yang dipaksa untuk keperluan anda.',
     'services.card2.name': 'Perundingan AI',
@@ -2011,13 +2247,13 @@ const TRANSLATIONS = {
     'hww.step3.desc':  'Kami melancarkan, mengukur, dan terus memperbaiki penyelesaian anda — jauh selepas hari pertama bermula.',
 
     'about.tag':       'Tentang Kami',
-    'about.heading':   'Kepakaran perusahaan,<br>untuk semua orang.',
+    'about.heading':   '<span class="section-word" style="--sw-delay:0s">Kepakaran</span> <span class="section-word" style="--sw-delay:0.1s">perusahaan,</span><br><span class="section-word" style="--sw-delay:0.2s">untuk</span> <span class="section-word" style="--sw-delay:0.3s">semua</span> <span class="section-word" style="--sw-delay:0.4s">orang.</span>',
     'about.subheading':'Dibina dengan hikmah. Disampaikan dengan penuh kasih.',
     'about.photo.alt': 'Qamarul Arifin bin Abd Manan, Pengasas arifAI Solutions',
     'about.text':      '<em>arif</em> itu peribadi — ia sebahagian daripada nama saya, Arifin. Tetapi ia juga bermaksud <em>bijak</em> dalam Bahasa Malaysia dan Arab. Maksud berganda itulah yang menggambarkan apa yang saya bina di sini.<br><br>Saya menghabiskan 13 tahun sebagai saintis data dan pakar pengoptimuman di PETRONAS dan ExxonMobil — membina sistem berkuasa AI yang digunakan oleh syarikat tenaga global. Kerja yang berisiko tinggi, kompleks, dan benar-benar memberi impak pada skala yang besar.<br><br>Apa yang saya perhatikan ialah jurang itu. Kemampuan yang sama yang mengoptimumkan operasi bernilai berbilion ringgit tidak sampai kepada pemilik perniagaan di tepi jalan — usahawan F&amp;B, PKS logistik, profesional bebas yang boleh mengubah perniagaan mereka dengan AI yang tepat, tetapi tiada jalan masuk.<br><br><strong>arifAI Solutions wujud untuk menutup jurang itu.</strong> Pemikiran kelas perusahaan, tanpa harga tag atau kerumitan perusahaan — untuk perniagaan di Melaka, seluruh Malaysia, dan merentasi sempadan.',
 
     'why.label':       'Kenapa arifAI',
-    'why.heading':     'Perbezaan yang akan anda rasai<br>dari hari pertama.',
+    'why.heading':     '<span class="section-word" style="--sw-delay:0s">Perbezaan</span> <span class="section-word" style="--sw-delay:0.1s">yang</span> <span class="section-word" style="--sw-delay:0.2s">akan</span> <span class="section-word" style="--sw-delay:0.3s">anda</span> <span class="section-word" style="--sw-delay:0.4s">rasai</span><br><span class="section-word" style="--sw-delay:0.5s">dari</span> <span class="section-word" style="--sw-delay:0.6s">hari</span> <span class="section-word" style="--sw-delay:0.7s">pertama.</span>',
     'why.pillar1.title': 'Hikmah berbanding hype',
     'why.pillar1.desc':  'Kami bertanya "patut ke?" sebelum "macam mana nak?" — supaya anda hanya melabur dalam AI yang benar-benar sesuai dengan perniagaan anda.',
     'why.pillar2.title': 'Rakan kongsi anda, bukan pembekal',
@@ -2085,6 +2321,12 @@ function applyLanguage(lang) {
 
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     if (t[el.dataset.i18nHtml] !== undefined) el.innerHTML = t[el.dataset.i18nHtml];
+    // Re-reveal section words if element was already visible
+    if (el.classList.contains('visible') || el.closest('.visible') || !el.classList.contains('fade-in')) {
+      el.querySelectorAll('.section-word').forEach(sw => {
+        sw.classList.add('section-word-revealed');
+      });
+    }
   });
 
   document.querySelectorAll('[data-i18n-headline]').forEach(el => {
@@ -2154,6 +2396,7 @@ window.addEventListener('load', () => {
   document.querySelectorAll('.hero-word').forEach((w, i) => {
     setTimeout(() => w.classList.add('revealed'), 200 + i * 80);
   });
+
 });
 
 // ── Scroll-triggered fade-ins ──
@@ -2161,13 +2404,88 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      // Section word reveal for headings
+      entry.target.querySelectorAll('.section-word').forEach(sw => {
+        sw.classList.add('section-word-revealed');
+      });
       observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.12 });
 
-document.querySelectorAll('.fade-in:not(#hero .fade-in)').forEach(el => {
+document.querySelectorAll('.fade-in:not(#hero .fade-in):not(.timeline-step)').forEach(el => {
   observer.observe(el);
+});
+
+// ── Section word observer (standalone headings without fade-in) ──
+const sectionWordObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.section-word').forEach(sw => {
+        sw.classList.add('section-word-revealed');
+      });
+      sectionWordObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+// Observe headings that have section-word children but no fade-in
+document.querySelectorAll('[data-i18n-html="about.heading"]').forEach(el => {
+  if (!el.classList.contains('fade-in')) sectionWordObserver.observe(el);
+});
+
+// ── Timeline observer ──
+const timelineSteps = document.querySelectorAll('.timeline-step');
+const timelineFill = document.querySelector('.timeline-line-fill');
+let visibleStepCount = 0;
+
+const timelineObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      visibleStepCount++;
+      if (timelineFill && !IS_REDUCED) {
+        timelineFill.style.height = (visibleStepCount / timelineSteps.length * 100) + '%';
+      }
+      timelineObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.35 });
+
+timelineSteps.forEach(step => timelineObserver.observe(step));
+
+// ── Count-up animation ──
+function animateCount(el) {
+  const target = parseInt(el.dataset.countTarget, 10);
+  const prefix = el.dataset.countPrefix || '';
+  const suffix = el.dataset.countSuffix || '';
+  const duration = 2000;
+  const start = performance.now();
+  el.classList.add('counted');
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // ease-out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(eased * target);
+    el.textContent = prefix + current + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = 'true';
+      if (!IS_REDUCED) animateCount(entry.target);
+      countObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.result-number[data-count-target]').forEach(el => {
+  countObserver.observe(el);
 });
 
 // ── Scroll: progress bar + navbar + scroll spy + parallax ──
@@ -2200,6 +2518,19 @@ function handleHeroParallax(t) {
   heroContent.style.opacity   = 1 - (t / window.innerHeight) * 1.2;
 }
 
+const CREAM_SECTIONS = ['services', 'about', 'contact'];
+function handleCreamCursor(t) {
+  const mid = t + window.innerHeight / 2;
+  let isOnCream = false;
+  CREAM_SECTIONS.forEach(id => {
+    const s = document.getElementById(id);
+    if (s && mid >= s.offsetTop && mid < s.offsetTop + s.offsetHeight) {
+      isOnCream = true;
+    }
+  });
+  document.body.classList.toggle('on-cream', isOnCream);
+}
+
 function onScroll() {
   const t = window.scrollY;
   const h = document.documentElement.scrollHeight - window.innerHeight;
@@ -2207,6 +2538,7 @@ function onScroll() {
   handleNavbarScroll(t);
   handleScrollSpy(t);
   if (!IS_TOUCH) handleHeroParallax(t);
+  if (!IS_TOUCH) handleCreamCursor(t);
   if (heroScrollEl) heroScrollEl.style.opacity = t > 80 ? '0' : '';
 }
 window.addEventListener('scroll', onScroll, { passive: true });
@@ -2318,6 +2650,19 @@ if (!IS_TOUCH) {
     });
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
+    });
+  });
+
+  // Nav link subtle magnetic
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('mousemove', e => {
+      const r  = link.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width  / 2)) * 0.08;
+      const dy = (e.clientY - (r.top  + r.height / 2)) * 0.08;
+      link.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = '';
     });
   });
 }
