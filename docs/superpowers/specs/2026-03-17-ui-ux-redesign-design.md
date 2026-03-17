@@ -69,9 +69,10 @@ Full codebase migration from a single `index.html` to a Vite + npm multi-file pr
 ```
 
 ### Build & Deploy
-- `vite build` → `dist/` → Vercel auto-detects Vite, no config needed
-- `vercel.json` security headers unchanged
+- `vite build` → `dist/`
+- `vercel.json` must be updated to add `buildCommand: "vite build"` and `outputDirectory: "dist"` alongside the existing security headers, otherwise Vercel will not know to run the build or where to serve from
 - `public/` assets copied to `dist/` root automatically by Vite
+- Existing security headers in `vercel.json` unchanged
 
 ### npm dependencies
 - `gsap` — ScrollTrigger for How We Work scroll narrative
@@ -113,7 +114,7 @@ Options E + F combined:
 **Background:**
 - Existing dot grid (`dotDrift` animation) — kept
 - Existing two glowing orbs (`orbFloat1/2`) — kept
-- **NEW: Constellation canvas** — `<canvas>` fills the hero absolutely, `z-index: 1`. 30 gold dots (`rgba(200,168,0,0.45)`) drift slowly. Lines drawn between dots within `150px`, opacity scales `0–0.18` with proximity. Density default 30 dots. Canvas resizes on window resize.
+- **NEW: Constellation canvas** — `<canvas>` fills the hero absolutely, `z-index: 1`. 30 gold dots (`rgba(200,168,0,0.45)`) drift slowly. Lines drawn between dots within `150px`, opacity scales `0–0.18` with proximity. Density default 30 dots. Canvas resizes on window resize. If `prefers-reduced-motion` is active, canvas renders static dots at initial positions with no animation loop (`requestAnimationFrame` not called).
 - Cursor glow (`--mouse-x/y` radial gradient) — kept
 
 **Layout:** Two-column grid unchanged (`1fr 320px`, `gap: 72px`)
@@ -161,9 +162,13 @@ No credential strip, no stat blocks, no problem strip — maximum restraint.
 **Right column:**
 - Gold divider line (48px × 2px)
 - Heading: `"You're in the right place."` — "right place." in gold
-- Body copy: 2 short paragraphs — mentions Malaysian SMEs, practical/affordable, founder credibility (13 yrs, PETRONAS, ExxonMobil)
+- Body copy (exact text):
+  > "arifAI Solutions works with **Malaysian SMEs** to turn these exact frustrations into working AI solutions — practical, affordable, and built around how your business actually runs.
+  >
+  > No jargon. No enterprise contracts. Just **focused work that solves real problems** — from someone who has spent 13 years doing exactly that at PETRONAS and ExxonMobil."
 - Service pills: `Custom AI Apps` · `Automation` · `AI Chatbots` · `Strategy & Consulting` — gold tint background, gold border, border-radius 20px
 - CTA link: `See how we work →` — gold underline style, gap animates on hover
+- Body copy uses `<strong>` tags → use `data-i18n-html` attribute for this element
 
 **i18n:** All copy annotated with `data-i18n` / `data-i18n-html` keys. BM translations required for all strings.
 
@@ -171,7 +176,7 @@ No credential strip, no stat blocks, no problem strip — maximum restraint.
 
 ### 5.3 Services (restructured)
 
-**Background:** Cream → **Dark** (section moves to dark bg to match current site alternation)
+**Background:** **Dark** (`#0a0a0a`). The Marquee ticker immediately after Services is also dark, but Marquee is a narrow full-bleed ticker band — not a content section — and is exempt from the alternation rule. This is consistent with the existing pattern where How We Work and Why Choose Us are also consecutive dark sections. The section sequence with backgrounds is: Hero(dark) → Who We Help(cream) → Services(dark) → Marquee(dark ticker band) → How We Work(dark) → About(cream).
 **Layout:** 4-col grid unchanged, but each card redesigned
 
 **Card design (Option B — expand on hover):**
@@ -202,10 +207,14 @@ No credential strip, no stat blocks, no problem strip — maximum restraint.
 **Background:** Dark (E + F treatment)
 **Enhancement:** GSAP ScrollTrigger scroll-triggered step reveal
 
-Each process step (`.step`) animates in sequence as the user scrolls:
-- Step becomes active: number highlights gold, title transitions to white, connecting line traces from previous step
-- Uses `gsap.timeline()` with `ScrollTrigger` scrub tied to section scroll progress
-- Fallback: if GSAP unavailable or `prefers-reduced-motion`, all steps visible immediately
+**DOM structure:** Unchanged from current. Existing `.step` elements are kept as-is. Only CSS classes and GSAP-driven behaviour are added — no HTML restructuring.
+
+Each process step (`.step`) animates in sequence as the user scrolls through the section:
+- **At rest:** step number muted, title muted, opacity reduced (`0.4`)
+- **Becomes active:** step number highlights gold, title transitions to full white, opacity `1`, left border accent traces in via `scaleY` from `0→1`
+- Steps activate one at a time in DOM order as `ScrollTrigger` scrub advances
+- Uses `gsap.timeline()` with `ScrollTrigger` `{ scrub: true, start: "top 70%", end: "bottom 30%" }` on the section
+- **Fallback:** `prefers-reduced-motion` or touch device → all steps rendered fully visible immediately, no GSAP applied
 
 ---
 
@@ -223,7 +232,13 @@ Value delivered ← .result-desc
 PETRONAS        ← .result-source (gold, uppercase, low opacity)
 ```
 
-The case text is a single sentence: the problem solved and the outcome. Sources remain PETRONAS / ExxonMobil / combined.
+**Case text copy (all three blocks):**
+
+| Stat | Number | Desc | Case text | Source |
+|---|---|---|---|---|
+| 1 | `$60M+` | Value delivered | *"Engineered AI optimisation models that directly improved production economics across upstream operations"* | EXXONMOBIL |
+| 2 | `13 yrs` | Enterprise AI experience | *"Led data science initiatives across exploration, production, and commercial functions at two of the world's largest energy companies"* | PETRONAS · EXXONMOBIL |
+| 3 | `4–8 wks` | Typical project delivery | *"From discovery to working solution — built around your business, not a generic template"* | ARIFAI SOLUTIONS |
 
 ---
 
@@ -247,7 +262,7 @@ Structure:
 3. What does it cost? → Simple automations from a few thousand ringgit. Custom apps scoped individually. First call always free.
 4. Can you work with our existing tools? → Yes — Google Workspace, Microsoft 365, WhatsApp, accounting software, CRMs, and more.
 
-**i18n:** All FAQ copy annotated with `data-i18n-html` keys. BM translations required.
+**i18n:** FAQ question and answer text contains no HTML tags — use `data-i18n` (`textContent`) for both question and answer elements. BM translations required for all 4 Q&A pairs.
 
 ---
 
@@ -268,7 +283,7 @@ Structure:
 
 - Sticky CTA bar (see §5.7)
 - Touch targets minimum `44px` height on all interactive elements
-- Service cards: hover expand replaced with tap-to-toggle on touch devices (`IS_TOUCH` flag)
+- Service cards: hover expand replaced with tap-to-toggle on touch devices (`IS_TOUCH` flag). Accordion behaviour — tapping a card opens it and closes any previously open card. A second tap on the same card closes it.
 - Who We Help pain-point hover states: disabled on touch, items always visible
 - Constellation canvas: reduced to 18 dots on mobile for performance
 
