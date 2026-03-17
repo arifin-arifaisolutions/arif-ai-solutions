@@ -5,6 +5,7 @@
   background: var(--cream);
   text-align: center;
   padding: 120px 24px;
+  overflow: hidden;
 }
 @media (max-width: 767px) {
   #contact { padding: 80px 20px; }
