@@ -1,0 +1,121 @@
+/* ══════════════════════════════════════
+   ABOUT / FOUNDER
+══════════════════════════════════════ */
+#about {
+  background: var(--cream);
+}
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* — Photo column — */
+.about-photo-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.about-photo-frame {
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  overflow: hidden;
+}
+.about-frame-marks {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+.about-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.about-founder-info {
+  padding-left: 4px;
+}
+.about-founder-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.about-founder-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.about-creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.about-cred-pill {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  border: 1px solid rgba(26,26,26,0.22);
+  border-radius: 100px;
+  padding: 4px 12px;
+}
+
+/* — Text column — */
+.about-right {}
+.about-tag {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.about-heading {
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.about-subheading {
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-bottom: 28px;
+}
+.about-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #444;
+  line-height: 1.8;
+}
+.about-text em {
+  font-style: italic;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+.about-text strong {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+@media (max-width: 767px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-photo-frame { max-width: 100%; }
+}
