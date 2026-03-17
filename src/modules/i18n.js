@@ -284,5 +284,4 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   if (saved === 'ms') applyLanguage('ms');
 })();
 
-// Export TRANSLATIONS and currentLang for use by contact-form.js
-export { TRANSLATIONS, currentLang };
+export { TRANSLATIONS }; // used by contact-form.js

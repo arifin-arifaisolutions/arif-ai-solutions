@@ -23,10 +23,9 @@ export function initContactForm() {
           throw new Error('server error');
         }
       } catch {
-        const lang2 = document.documentElement.lang === 'ms' ? 'ms' : 'en';
-        btn.textContent = TRANSLATIONS[lang2]['js.send'];
+        btn.textContent = TRANSLATIONS[lang]['js.send'];
         btn.disabled = false;
-        alert(TRANSLATIONS[lang2]['js.error']);
+        alert(TRANSLATIONS[lang]['js.error']);
       }
     });
   }
