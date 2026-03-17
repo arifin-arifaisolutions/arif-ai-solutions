@@ -1,0 +1,15 @@
+:root {
+  --gold: #c8a800;
+  --gold-dim: rgba(200,168,0,0.2);
+  --gold-glow: rgba(200,168,0,0.15);
+  --dark: #0a0a0a;
+  --body-bg: #1a1a1a;
+  --cream: #f4f1e8;
+  --white: #ffffff;
+  --text-dark: #1a1a1a;
+  --muted-dark: #555;
+  --muted-light: #888;
+  --muted-cream: #bbb;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
