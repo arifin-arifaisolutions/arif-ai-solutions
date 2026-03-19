@@ -44,7 +44,6 @@ body {
   }
   .hero-word { clip-path: none !important; }
   .section-word { clip-path: none !important; }
-  .pillar.fade-in { clip-path: none !important; }
   #cursor-dot, #cursor-ring, #scroll-bar { display: none !important; }
 }
 
