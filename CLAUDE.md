@@ -63,6 +63,10 @@ The logo mark is an inline SVG: `viewBox="0 0 96 96"`, gold circle outline + 5 v
 
 The wordmark pattern: `[` (gold, weight 300) + `arif` (white/#1a1a1a, weight 500) + `AI` (gold, weight 700) + `]` (gold, weight 300), with `solutions` in small uppercase spaced tracking below.
 
+## Critical CSS Rules
+
+**`overflow-x: hidden` must be set on BOTH `html` and `body`** — never only on `body`. When set only on `body`, the browser makes the body a scroll container. Any element wider than the viewport (hero orbs, ring frame, canvas) causes `position: fixed` elements to be positioned relative to the body's full content width instead of the viewport, pushing them off-screen to the right. This made the navbar hamburger invisible on mobile. Setting it on `html` transfers clipping to the viewport, restoring correct `position: fixed` behaviour.
+
 ## CSS Keyframe Namespacing
 
 Two animation systems exist — keep their namespaces separate:
