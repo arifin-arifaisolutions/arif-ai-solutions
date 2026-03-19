@@ -107,6 +107,11 @@ export function initNavbar() {
     countObserver.observe(el);
   });
 
+  // ── Sticky CTA bar ──
+  const stickyCta  = document.getElementById('sticky-cta')
+  const contactEl  = document.getElementById('contact')
+  const heroHeight = document.getElementById('hero')?.offsetHeight ?? window.innerHeight
+
   // ── Scroll: progress bar + navbar + scroll spy + parallax ──
   function handleNavbarScroll(t) {
     navbarEl.classList.toggle('scrolled', t > 80);
@@ -135,7 +140,7 @@ export function initNavbar() {
     heroContent.style.opacity   = 1 - (t / window.innerHeight) * 1.2;
   }
 
-  const CREAM_SECTIONS = ['services', 'about', 'contact'];
+  const CREAM_SECTIONS = ['who-we-help', 'about', 'faq', 'contact'];
   function handleCreamCursor(t) {
     const mid = t + window.innerHeight / 2;
     let isOnCream = false;
@@ -157,6 +162,18 @@ export function initNavbar() {
     if (!IS_TOUCH) handleHeroParallax(t);
     if (!IS_TOUCH) handleCreamCursor(t);
     if (heroScrollEl) heroScrollEl.style.opacity = t > 80 ? '0' : '';
+    // Sticky CTA bar (mobile only)
+    if (stickyCta) {
+      const contactRect = contactEl?.getBoundingClientRect()
+      const contactVisible = contactRect && contactRect.top < window.innerHeight && contactRect.bottom > 0
+      if (t > heroHeight && !contactVisible) {
+        stickyCta.classList.add('visible')
+        stickyCta.setAttribute('aria-hidden', 'false')
+      } else {
+        stickyCta.classList.remove('visible')
+        stickyCta.setAttribute('aria-hidden', 'true')
+      }
+    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   // initialise navbar state on load
