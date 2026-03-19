@@ -73,6 +73,18 @@
   color: var(--gold);
   opacity: 0.5;
 }
+.result-divider {
+  width: 32px; height: 1px;
+  background: rgba(200,168,0,0.35);
+  margin: 14px 0;
+}
+.result-case {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+}
+
 .results-note {
   margin-top: 64px;
   text-align: center;
