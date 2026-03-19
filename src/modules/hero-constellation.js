@@ -1,6 +1,8 @@
 const IS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function initConstellation() {
+  if (IS_REDUCED) return   // skip entirely for reduced-motion users
+
   const canvas = document.getElementById('hero-constellation')
   if (!canvas) return
   const ctx = canvas.getContext('2d')
@@ -29,13 +31,11 @@ export function initConstellation() {
   function drawFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    if (!IS_REDUCED) {
-      dots.forEach(d => {
-        d.x += d.vx; d.y += d.vy
-        if (d.x < 0 || d.x > canvas.width)  d.vx *= -1
-        if (d.y < 0 || d.y > canvas.height) d.vy *= -1
-      })
-    }
+    dots.forEach(d => {
+      d.x += d.vx; d.y += d.vy
+      if (d.x < 0 || d.x > canvas.width)  d.vx *= -1
+      if (d.y < 0 || d.y > canvas.height) d.vy *= -1
+    })
 
     for (let i = 0; i < dots.length; i++) {
       for (let j = i + 1; j < dots.length; j++) {
@@ -60,7 +60,7 @@ export function initConstellation() {
       ctx.fill()
     })
 
-    if (!IS_REDUCED) requestAnimationFrame(drawFrame)
+    requestAnimationFrame(drawFrame)
   }
 
   drawFrame()

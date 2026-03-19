@@ -67,8 +67,6 @@
 }
 .service-card:hover::before { opacity: 1; }
 
-.service-card-content { position: relative; z-index: 1; }
-
 /* Use cases block (hidden by default) */
 .service-usecases {
   overflow: hidden;

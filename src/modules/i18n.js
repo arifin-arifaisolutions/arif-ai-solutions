@@ -48,7 +48,7 @@ const TRANSLATIONS = {
     'who.pill1': 'Custom AI Apps',
     'who.pill2': 'Automation',
     'who.pill3': 'AI Chatbots',
-    'who.pill4': 'Strategy &amp; Consulting',
+    'who.pill4': 'Strategy & Consulting',
     'who.cta': 'See how we work',
 
     'services.use-label': 'e.g.',
@@ -192,7 +192,7 @@ const TRANSLATIONS = {
     'who.pill1': 'Aplikasi AI Tersuai',
     'who.pill2': 'Automasi',
     'who.pill3': 'Chatbot AI',
-    'who.pill4': 'Strategi &amp; Perundingan',
+    'who.pill4': 'Strategi & Perundingan',
     'who.cta': 'Lihat cara kami bekerja',
 
     'services.use-label': 'cth.',

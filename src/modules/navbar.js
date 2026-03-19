@@ -108,9 +108,13 @@ export function initNavbar() {
   });
 
   // ── Sticky CTA bar ──
-  const stickyCta  = document.getElementById('sticky-cta')
-  const contactEl  = document.getElementById('contact')
-  const heroHeight = document.getElementById('hero')?.offsetHeight ?? window.innerHeight
+  const stickyCta = document.getElementById('sticky-cta')
+  const contactEl = document.getElementById('contact')
+  const heroEl    = document.getElementById('hero')
+  let   heroHeight = heroEl?.offsetHeight ?? window.innerHeight
+  window.addEventListener('resize', () => {
+    heroHeight = heroEl?.offsetHeight ?? window.innerHeight
+  }, { passive: true })
 
   // ── Scroll: progress bar + navbar + scroll spy + parallax ──
   function handleNavbarScroll(t) {
