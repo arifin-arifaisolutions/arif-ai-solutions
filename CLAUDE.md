@@ -129,9 +129,8 @@ EN/BM language toggle implemented entirely in JS — no external libraries.
 - **Scroll progress bar:** `#scroll-bar` scaled on X via `transform: scaleX(ratio)`
 - **Navbar state:** `.scrolled` class on `#navbar` when `scrollY > 80`
 - **Scroll spy:** `.nav-active` toggled on nav links. Sections tracked: `services`, `how-we-work`, `about`, `contact`
-- **Hero parallax:** `.hero-content` translates Y at 0.25× scroll, fades out — desktop only
+- **Hero parallax:** `.hero-content` (the grid wrapper) translates Y at 0.25× scroll, fades out — desktop only; both `.hero-left` and `.hero-right` move together
 - **Custom cursor:** `#cursor-dot` (snaps) + `#cursor-ring` (0.12 lerp). `.cursor-hover` when over `a, button, .service-card, .pillar`. `body.cursor-ready` hides system cursor
-- **Hero parallax:** applies to `.hero-content` (the grid wrapper) — both `.hero-left` and `.hero-right` move together
 - **Cursor glow:** `--mouse-x` / `--mouse-y` on `:root` drive CSS radial gradients
 - **3D card tilt:** `.service-card` rotates ±14deg on mousemove — desktop only
 - **Magnetic buttons:** `.btn-primary` / `.btn-secondary` translate 25% of cursor offset — desktop only

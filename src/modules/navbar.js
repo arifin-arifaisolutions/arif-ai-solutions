@@ -157,27 +157,33 @@ export function initNavbar() {
     document.body.classList.toggle('on-cream', isOnCream);
   }
 
+  let scrollRafPending = false;
   function onScroll() {
-    const t = window.scrollY;
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    scrollBar.style.transform = `scaleX(${h > 0 ? t / h : 0})`;
-    handleNavbarScroll(t);
-    handleScrollSpy(t);
-    if (!IS_TOUCH) handleHeroParallax(t);
-    if (!IS_TOUCH) handleCreamCursor(t);
-    if (heroScrollEl) heroScrollEl.style.opacity = t > 80 ? '0' : '';
-    // Sticky CTA bar (mobile only)
-    if (stickyCta) {
-      const contactRect = contactEl?.getBoundingClientRect()
-      const contactVisible = contactRect && contactRect.top < window.innerHeight && contactRect.bottom > 0
-      if (t > heroHeight && !contactVisible) {
-        stickyCta.classList.add('visible')
-        stickyCta.setAttribute('aria-hidden', 'false')
-      } else {
-        stickyCta.classList.remove('visible')
-        stickyCta.setAttribute('aria-hidden', 'true')
+    if (scrollRafPending) return;
+    scrollRafPending = true;
+    requestAnimationFrame(() => {
+      scrollRafPending = false;
+      const t = window.scrollY;
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      scrollBar.style.transform = `scaleX(${h > 0 ? t / h : 0})`;
+      handleNavbarScroll(t);
+      handleScrollSpy(t);
+      if (!IS_TOUCH) handleHeroParallax(t);
+      if (!IS_TOUCH) handleCreamCursor(t);
+      if (heroScrollEl) heroScrollEl.style.opacity = t > 80 ? '0' : '';
+      // Sticky CTA bar (mobile only)
+      if (stickyCta) {
+        const contactRect = contactEl?.getBoundingClientRect()
+        const contactVisible = contactRect && contactRect.top < window.innerHeight && contactRect.bottom > 0
+        if (t > heroHeight && !contactVisible) {
+          stickyCta.classList.add('visible')
+          stickyCta.setAttribute('aria-hidden', 'false')
+        } else {
+          stickyCta.classList.remove('visible')
+          stickyCta.setAttribute('aria-hidden', 'true')
+        }
       }
-    }
+    });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   // initialise navbar state on load

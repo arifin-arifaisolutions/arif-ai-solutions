@@ -70,6 +70,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  will-change: transform;
 }
 
 .hero-content {
@@ -289,6 +290,16 @@ em .section-word.section-word-revealed { clip-path: inset(-4px -20px -8px 0); }
 }
 @keyframes scrollCueFade {
   to { opacity: 1; }
+}
+
+/* ── Mobile: disable GPU-heavy hero animations ── */
+@media (max-width: 767px) {
+  /* Remove blur-filter orbs — most expensive GPU operation during scroll */
+  .hero-orb { display: none; }
+  /* Stop full-viewport background drift animation */
+  #hero::before { animation: none; }
+  /* Stop decorative ring spin animations */
+  .hrf-ring-2, .hrf-ring-3 { animation: none; }
 }
 
 @media (max-width: 900px) {

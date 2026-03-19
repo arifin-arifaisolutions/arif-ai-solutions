@@ -28,6 +28,8 @@ export function initConstellation() {
     r:  0.9 + Math.random() * 1.4,
   }))
 
+  let animationId = null
+
   function drawFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -60,8 +62,21 @@ export function initConstellation() {
       ctx.fill()
     })
 
-    requestAnimationFrame(drawFrame)
+    animationId = requestAnimationFrame(drawFrame)
   }
 
-  drawFrame()
+  // Pause loop when hero scrolls out of view, resume when back
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!animationId) animationId = requestAnimationFrame(drawFrame)
+      } else {
+        if (animationId) { cancelAnimationFrame(animationId); animationId = null }
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      }
+    })
+  }, { threshold: 0 })
+
+  heroObserver.observe(hero)
+  animationId = requestAnimationFrame(drawFrame)
 }
