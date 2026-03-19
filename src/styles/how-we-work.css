@@ -92,6 +92,20 @@
   max-width: 560px;
 }
 
+/* GSAP scroll narrative states */
+.timeline-step { transition: opacity 0.3s; }
+.timeline-step.step-active .step-title { color: var(--white); }
+.timeline-step.step-active .timeline-node {
+  box-shadow: 0 0 20px rgba(200,168,0,0.4);
+  background: rgba(200,168,0,0.1);
+}
+.timeline-step.step-active .timeline-node::after { opacity: 1; }
+
+/* prefers-reduced-motion: show all steps */
+@media (prefers-reduced-motion: reduce) {
+  .timeline-step { opacity: 1 !important; }
+}
+
 @media (max-width: 767px) {
   .steps-timeline { padding-left: 44px; margin-top: 48px; }
   .timeline-node { width: 28px; height: 28px; left: -42px; top: 2px; }
