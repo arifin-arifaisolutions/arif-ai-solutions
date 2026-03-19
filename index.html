@@ -150,6 +150,7 @@
      HERO
 ══════════════════════════════════════ -->
 <section id="hero">
+  <canvas id="hero-constellation" aria-hidden="true"></canvas>
   <!-- Glowing orbs -->
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
@@ -236,9 +237,76 @@
 
 
 <!-- ══════════════════════════════════════
+     WHO WE HELP
+══════════════════════════════════════ -->
+<section id="who-we-help" class="section-pad bg-cream-rich">
+  <div class="container">
+    <div class="wwh-grid">
+
+      <!-- Left: pain points -->
+      <div class="wwh-left">
+        <span class="label-tag" data-i18n="who.tag">Who We Help</span>
+        <h2 class="wwh-heading fade-in">
+          <span class="section-word" data-i18n="who.heading">Does any of this</span><br>
+          <em><span class="section-word" data-i18n="who.heading-em">sound familiar?</span></em>
+        </h2>
+        <ul class="pain-list" role="list">
+          <li class="pain-item fade-in fade-in-delay-1">
+            <span class="pain-marker" aria-hidden="true"></span>
+            <p class="pain-text" data-i18n="who.pain1">Your team spends hours every week manually compiling reports or updating spreadsheets</p>
+          </li>
+          <li class="pain-item fade-in fade-in-delay-2">
+            <span class="pain-marker" aria-hidden="true"></span>
+            <p class="pain-text" data-i18n="who.pain2">Customers ask the same questions repeatedly — and your staff handles every single one</p>
+          </li>
+          <li class="pain-item fade-in fade-in-delay-3">
+            <span class="pain-marker" aria-hidden="true"></span>
+            <p class="pain-text" data-i18n="who.pain3">Your business tools don't connect — data lives in silos and nothing syncs automatically</p>
+          </li>
+          <li class="pain-item fade-in fade-in-delay-4">
+            <span class="pain-marker" aria-hidden="true"></span>
+            <p class="pain-text" data-i18n="who.pain4">You know AI could help your business — but you don't know where to begin or who to trust</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: resolution -->
+      <div class="wwh-right fade-in fade-in-delay-2">
+        <div class="wwh-divider" aria-hidden="true"></div>
+        <h3 class="wwh-resolution-heading">
+          <span data-i18n="who.res-heading">You're in the</span>
+          <span class="wwh-gold" data-i18n="who.res-heading-gold">right place.</span>
+        </h3>
+        <p class="wwh-body" data-i18n-html="who.body1">
+          arifAI Solutions works with <strong>Malaysian SMEs</strong> to turn these exact frustrations into working AI solutions — practical, affordable, and built around how your business actually runs.
+        </p>
+        <p class="wwh-body" data-i18n-html="who.body2">
+          No jargon. No enterprise contracts. Just <strong>focused work that solves real problems</strong> — from someone who has spent 13 years doing exactly that at PETRONAS and ExxonMobil.
+        </p>
+        <div class="wwh-pills">
+          <span class="wwh-pill" data-i18n="who.pill1">Custom AI Apps</span>
+          <span class="wwh-pill" data-i18n="who.pill2">Automation</span>
+          <span class="wwh-pill" data-i18n="who.pill3">AI Chatbots</span>
+          <span class="wwh-pill" data-i18n="who.pill4">Strategy &amp; Consulting</span>
+        </div>
+        <a href="#how-we-work" class="wwh-cta-link" data-i18n="who.cta">
+          See how we work
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <polyline points="9,3 14,8 9,13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
      SERVICES
 ══════════════════════════════════════ -->
-<section id="services" class="section-pad">
+<section id="services" class="section-pad bg-dark-rich">
   <div class="container">
     <p class="section-label fade-in" data-i18n="services.label">What We Do</p>
     <h2 class="section-heading fade-in fade-in-delay-1" data-i18n-html="services.heading">AI that fits your world —<br>not the other way around.</h2>
@@ -257,6 +325,12 @@
         </svg>
         <div class="service-name" data-i18n="services.card1.name">Custom AI Apps</div>
         <div class="service-desc" data-i18n="services.card1.desc">Bespoke applications built around your workflow — not generic tools retrofitted to your needs.</div>
+        <div class="service-usecases" aria-hidden="true">
+          <div class="service-use-label" data-i18n="services.use-label">e.g.</div>
+          <div class="service-use-item" data-i18n="services.ai-apps.use1">Auto-generated weekly performance reports</div>
+          <div class="service-use-item" data-i18n="services.ai-apps.use2">AI-powered invoice processing &amp; approval</div>
+          <div class="service-use-item" data-i18n="services.ai-apps.use3">Smart inventory dashboards with alerts</div>
+        </div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="3" width="134" height="114" rx="6" stroke="#c8a800" stroke-width="1.5"/>
@@ -284,6 +358,12 @@
         </svg>
         <div class="service-name" data-i18n="services.card2.name">AI Consulting</div>
         <div class="service-desc" data-i18n="services.card2.desc">Strategy and roadmapping for businesses ready to adopt AI purposefully, with a clear path forward.</div>
+        <div class="service-usecases" aria-hidden="true">
+          <div class="service-use-label" data-i18n="services.use-label">e.g.</div>
+          <div class="service-use-item" data-i18n="services.consulting.use1">AI opportunity mapping workshop</div>
+          <div class="service-use-item" data-i18n="services.consulting.use2">Build-vs-buy tool evaluation</div>
+          <div class="service-use-item" data-i18n="services.consulting.use3">12-month AI roadmap for your team</div>
+        </div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="15" y1="8" x2="15" y2="104" stroke="#c8a800" stroke-width="1"/>
@@ -310,6 +390,12 @@
         </svg>
         <div class="service-name" data-i18n="services.card3.name">Automation &amp; Integration</div>
         <div class="service-desc" data-i18n="services.card3.desc">Connect AI to your existing tools and processes — seamless, reliable, and built to scale with you.</div>
+        <div class="service-usecases" aria-hidden="true">
+          <div class="service-use-label" data-i18n="services.use-label">e.g.</div>
+          <div class="service-use-item" data-i18n="services.automation.use1">Sync CRM, accounting &amp; ops platforms</div>
+          <div class="service-use-item" data-i18n="services.automation.use2">Auto-trigger workflows on form submissions</div>
+          <div class="service-use-item" data-i18n="services.automation.use3">Cross-system reporting pipelines</div>
+        </div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line class="ill-base-line" x1="15" y1="60" x2="70" y2="25" stroke="#c8a800" stroke-width="1.5"/>
@@ -341,6 +427,12 @@
         </svg>
         <div class="service-name" data-i18n="services.card4.name">AI Agents &amp; Chatbots</div>
         <div class="service-desc" data-i18n="services.card4.desc">Intelligent assistants that handle queries, qualify leads, and work tirelessly — even while you sleep.</div>
+        <div class="service-usecases" aria-hidden="true">
+          <div class="service-use-label" data-i18n="services.use-label">e.g.</div>
+          <div class="service-use-item" data-i18n="services.chatbots.use1">Customer FAQ bot for WhatsApp or website</div>
+          <div class="service-use-item" data-i18n="services.chatbots.use2">Internal HR &amp; policy query assistant</div>
+          <div class="service-use-item" data-i18n="services.chatbots.use3">Appointment booking &amp; follow-up agent</div>
+        </div>
         <div class="service-card-illustration" aria-hidden="true">
           <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="8" y="8" width="88" height="24" rx="12" fill="#c8a800" opacity="0.55"/>
@@ -540,24 +632,87 @@
         <div class="result-number" data-i18n="track.stat1.number" data-count-target="60" data-count-prefix="$" data-count-suffix="M+">$60M+</div>
         <div class="result-desc" data-i18n="track.stat1.desc">Annual value captured through advanced data science solutions — a multivariate forecasting tool that transformed product inventory planning, combined with ML-driven optimisation of refinery sales channels across global operations.</div>
         <div class="result-source" data-i18n="track.stat1.source">ExxonMobil &nbsp;·&nbsp; Data Scientist</div>
+        <div class="result-divider" aria-hidden="true"></div>
+        <p class="result-case" data-i18n="track.case1">"Engineered AI optimisation models that directly improved production economics across upstream operations"</p>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-1">
         <div class="result-number" data-i18n="track.stat2.number" data-count-target="10" data-count-prefix="" data-count-suffix="+">10+</div>
         <div class="result-desc" data-i18n="track.stat2.desc">Real-time optimisation applications built and deployed across energy and manufacturing sites in the United States, Europe and Asia-Pacific — each sustaining measurable, ongoing operational improvements at industrial scale.</div>
         <div class="result-source" data-i18n="track.stat2.source">ExxonMobil &nbsp;·&nbsp; Global Operations</div>
+        <div class="result-divider" aria-hidden="true"></div>
+        <p class="result-case" data-i18n="track.case2">"Led data science initiatives across exploration, production, and commercial functions at two of the world's largest energy companies"</p>
       </div>
 
       <div class="result-stat fade-in fade-in-delay-2">
         <div class="result-number" data-i18n="track.stat3.number" data-count-target="13" data-count-prefix="" data-count-suffix=" yrs">13 yrs</div>
         <div class="result-desc" data-i18n="track.stat3.desc">From Advanced Process Control at the PETRONAS Melaka refinery to enterprise AI systems at ExxonMobil — solving high-stakes data and optimisation problems for global energy companies. Now applying that same rigour to your business.</div>
         <div class="result-source" data-i18n="track.stat3.source">PETRONAS &nbsp;·&nbsp; ExxonMobil &nbsp;·&nbsp; AFED Digital</div>
+        <div class="result-divider" aria-hidden="true"></div>
+        <p class="result-case" data-i18n="track.case3">"From discovery to working solution — built around your business, not a generic template"</p>
       </div>
 
     </div>
 
     <p class="results-note fade-in" data-i18n="track.note">The same rigour that moved the needle for billion-dollar operations — now applied to yours.</p>
 
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FAQ
+══════════════════════════════════════ -->
+<section id="faq" class="section-pad bg-cream-rich">
+  <div class="container">
+    <span class="label-tag" data-i18n="faq.tag">FAQ</span>
+    <h2 class="faq-heading fade-in">
+      <span class="section-word" data-i18n="faq.heading">Questions we</span>
+      <em><span class="section-word" data-i18n="faq.heading-em">always get asked</span></em>
+    </h2>
+    <div class="faq-list">
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">
+          <span class="faq-num">01</span>
+          <p data-i18n="faq.q1">How long does a typical project take?</p>
+        </div>
+        <div class="faq-a">
+          <p data-i18n="faq.a1">Most projects go from discovery to a working solution in 4–8 weeks. A chatbot or automation can be live in as little as 2 weeks. Complex custom apps may take 2–3 months. We'll give you a clear timeline before we start.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in fade-in-delay-1">
+        <div class="faq-q">
+          <span class="faq-num">02</span>
+          <p data-i18n="faq.q2">Do I need technical knowledge to work with you?</p>
+        </div>
+        <div class="faq-a">
+          <p data-i18n="faq.a2">Not at all. We translate between your business needs and the technology. You describe the problem; we figure out the solution. We keep you informed in plain language throughout.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in fade-in-delay-2">
+        <div class="faq-q">
+          <span class="faq-num">03</span>
+          <p data-i18n="faq.q3">What does it cost?</p>
+        </div>
+        <div class="faq-a">
+          <p data-i18n="faq.a3">Pricing depends on scope. Simple automations start from a few thousand ringgit. Custom apps and agent deployments are scoped individually. The first call is always free — book it and we'll give you an honest estimate.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in fade-in-delay-3">
+        <div class="faq-q">
+          <span class="faq-num">04</span>
+          <p data-i18n="faq.q4">Can you work with the tools we already use?</p>
+        </div>
+        <div class="faq-a">
+          <p data-i18n="faq.a4">Yes. We integrate with most common business tools — Google Workspace, Microsoft 365, WhatsApp, accounting software, CRMs, and more. We build around your existing stack, not around ours.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -649,6 +804,10 @@
     </div>
   </div>
 </footer>
+
+<div id="sticky-cta" aria-hidden="true">
+  <a href="#contact" class="btn-primary sticky-cta-btn" data-i18n="nav.cta">Let's Talk</a>
+</div>
 
 <script type="module" src="/src/main.js"></script>
 </body>
