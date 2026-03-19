@@ -1,0 +1,203 @@
+/* ══════════════════════════════════════
+   SERVICES
+══════════════════════════════════════ */
+#services {
+  background: var(--dark);
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease 0.1s;
+  flex-shrink: 0;
+}
+.section-label.visible::before { transform: scaleX(1); }
+.section-heading {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: white;
+  margin-bottom: 56px;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  perspective: 1200px;
+}
+.service-card {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 28px 24px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.25s, background 0.25s;
+  cursor: default;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.service-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(200,168,0,0.1) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 50%, black 10%, transparent 100%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none; z-index: 0;
+}
+.service-card:hover {
+  border-color: rgba(200,168,0,0.35);
+  background: #131313;
+}
+.service-card:hover::before { opacity: 1; }
+
+/* Use cases block (hidden by default) */
+.service-usecases {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.service-card:hover .service-usecases,
+.service-card.expanded .service-usecases {
+  max-height: 130px;
+  opacity: 1;
+}
+.service-card:hover .service-desc,
+.service-card.expanded .service-desc {
+  margin-bottom: 14px;
+}
+
+.service-use-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(200,168,0,0.6);
+  margin-bottom: 8px;
+}
+.service-use-item {
+  font-size: 11px; color: #777;
+  padding: 3px 0;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.service-use-item::before {
+  content: '→'; color: var(--gold);
+  flex-shrink: 0; font-size: 10px; margin-top: 1px;
+}
+
+/* — Card illustrations — */
+.service-card-illustration {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 140px; height: 120px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+  transition: opacity 0.4s ease;
+  mask-image: linear-gradient(to top left, black 0%, transparent 68%);
+  -webkit-mask-image: linear-gradient(to top left, black 0%, transparent 68%);
+}
+.service-card:hover .service-card-illustration { opacity: 0.25; }
+.service-icon,
+.service-name,
+.service-desc,
+.service-usecases { position: relative; z-index: 1; }
+
+/* Bar breathe — Custom AI Apps */
+.ill-bar { transform-box: fill-box; transform-origin: bottom center; }
+@keyframes illBar1 { 0%,100%{transform:scaleY(1)}    50%{transform:scaleY(0.55)} }
+@keyframes illBar2 { 0%,100%{transform:scaleY(0.72)} 50%{transform:scaleY(1)}    }
+@keyframes illBar3 { 0%,100%{transform:scaleY(1)}    50%{transform:scaleY(0.65)} }
+@keyframes illBar4 { 0%,100%{transform:scaleY(0.78)} 50%{transform:scaleY(1)}    }
+.ill-bar-1 { animation: illBar1 2.8s ease-in-out infinite; }
+.ill-bar-2 { animation: illBar2 3.2s ease-in-out infinite 0.5s; }
+.ill-bar-3 { animation: illBar3 2.6s ease-in-out infinite 1.0s; }
+.ill-bar-4 { animation: illBar4 3.0s ease-in-out infinite 1.5s; }
+
+/* Line trace — AI Consulting */
+.ill-line-path {
+  stroke-dasharray: 132;
+  stroke-dashoffset: 132;
+  animation: illLineTrace 3.5s ease-in-out infinite;
+}
+@keyframes illLineTrace {
+  0%      { stroke-dashoffset: 132; opacity: 0; }
+  8%      { stroke-dashoffset: 132; opacity: 1; }
+  65%,78% { stroke-dashoffset: 0;   opacity: 1; }
+  100%    { stroke-dashoffset: 0;   opacity: 0; }
+}
+.ill-dot-end {
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0;
+  animation: illDotPulse 3.5s ease-in-out infinite;
+}
+@keyframes illDotPulse {
+  0%,58%  { opacity: 0; transform: scale(0);   }
+  70%     { opacity: 1; transform: scale(1.5); }
+  84%     { opacity: 1; transform: scale(1);   }
+  100%    { opacity: 0; transform: scale(0);   }
+}
+
+/* Signal travel — Automation & Integration */
+.ill-base-line { opacity: 0.3; }
+.ill-signal-line { stroke-dasharray: 7 57; }
+.ill-signal-1 { animation: illSignalMove 2.0s linear infinite; }
+.ill-signal-2 { animation: illSignalMove 2.0s linear infinite 0.5s; }
+.ill-signal-3 { animation: illSignalMove 2.0s linear infinite 1.0s; }
+.ill-signal-4 { animation: illSignalMove 2.0s linear infinite 1.5s; }
+@keyframes illSignalMove {
+  from { stroke-dashoffset: 0;   }
+  to   { stroke-dashoffset: -64; }
+}
+
+/* Typing dots — AI Agents & Chatbots */
+.ill-typing-dot { transform-box: fill-box; transform-origin: center; }
+.ill-typing-dot-1 { animation: illTypeDot 1.2s ease-in-out infinite; }
+.ill-typing-dot-2 { animation: illTypeDot 1.2s ease-in-out infinite 0.2s; }
+.ill-typing-dot-3 { animation: illTypeDot 1.2s ease-in-out infinite 0.4s; }
+@keyframes illTypeDot {
+  0%,100% { transform: translateY(0);   }
+  40%     { transform: translateY(-5px); }
+}
+
+.service-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  color: var(--gold);
+}
+.service-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.service-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .services-grid { grid-template-columns: 1fr; }
+}

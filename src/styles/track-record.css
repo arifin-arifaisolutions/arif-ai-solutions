@@ -1,0 +1,106 @@
+/* ══════════════════════════════════════
+   TRACK RECORD
+══════════════════════════════════════ */
+#testimonials {
+  background: #111111;
+  position: relative;
+  overflow: hidden;
+}
+#testimonials .section-heading { color: var(--white); }
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 64px;
+  border-top: 1px solid rgba(200,168,0,0.12);
+}
+.result-stat {
+  padding: 48px 40px;
+  border-right: 1px solid rgba(200,168,0,0.12);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.result-stat:last-child { border-right: none; }
+.result-stat:hover { background: rgba(200,168,0,0.04); }
+.result-stat::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80%; height: 60%;
+  background: radial-gradient(ellipse, rgba(200,168,0,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+.result-stat:hover::before { opacity: 1; }
+.result-stat > * { position: relative; z-index: 1; }
+.result-number {
+  font-size: clamp(60px, 7vw, 88px);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.result-number::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease 0.3s;
+}
+.result-number.counted::after { transform: scaleX(1); }
+.result-desc {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(244,241,232,0.65);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.result-source {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
+}
+.result-divider {
+  width: 32px; height: 1px;
+  background: rgba(200,168,0,0.35);
+  margin: 14px 0;
+}
+.result-case {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.45);
+}
+
+.results-note {
+  margin-top: 64px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(244,241,232,0.35);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+  .results-grid { grid-template-columns: 1fr; }
+  .result-stat {
+    border-right: none;
+    border-bottom: 1px solid rgba(200,168,0,0.12);
+    padding: 40px 24px;
+  }
+  .result-stat:last-child { border-bottom: none; }
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>OG Image — arifAI Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+
+    .card {
+      width: 1200px;
+      height: 630px;
+      position: relative;
+      background: #0a0a0a;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Gold top + bottom hairlines */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent 0%, #c8a800 30%, #c8a800 70%, transparent 100%);
+      opacity: 0.6;
+      z-index: 10;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent 0%, #c8a800 30%, #c8a800 70%, transparent 100%);
+      opacity: 0.25;
+      z-index: 10;
+    }
+
+    /* Founder photo — right side */
+    .photo {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 560px;
+      height: 630px;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 0;
+    }
+
+    /* Fade photo into dark bg on the left */
+    .photo-mask {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 560px;
+      height: 630px;
+      background: linear-gradient(to right, #0a0a0a 0%, rgba(10,10,10,0.5) 45%, transparent 100%);
+      z-index: 1;
+    }
+
+    /* Fade photo bottom */
+    .photo-mask-bottom {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 560px;
+      height: 220px;
+      background: linear-gradient(to top, #0a0a0a 0%, transparent 100%);
+      z-index: 2;
+    }
+
+    /* Ambient gold glow — emanates from left */
+    .glow {
+      position: absolute;
+      left: -80px;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(200,168,0,0.07) 0%, transparent 65%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Grain overlay */
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 9;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* Left content column */
+    .content {
+      position: absolute;
+      left: 72px;
+      top: 0;
+      bottom: 0;
+      width: 580px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    /* Logo row */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .wordmark { display: flex; flex-direction: column; }
+
+    .wordmark-line {
+      font-size: 21px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .b { color: #c8a800; font-weight: 300; }
+    .a { color: #ffffff; font-weight: 500; }
+    .ai { color: #c8a800; font-weight: 700; }
+
+    .wordmark-sub {
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200,168,0,0.65);
+      margin-top: 5px;
+    }
+
+    /* Divider */
+    .divider {
+      width: 44px;
+      height: 1.5px;
+      background: #c8a800;
+      opacity: 0.55;
+      margin-bottom: 32px;
+    }
+
+    /* Main headline */
+    h1 {
+      font-size: 62px;
+      font-weight: 700;
+      line-height: 1.04;
+      color: #ffffff;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+    }
+    h1 em {
+      color: #c8a800;
+      font-style: normal;
+    }
+
+    /* Subline */
+    .sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.01em;
+      font-style: italic;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    /* Domain pill */
+    .domain {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(200,168,0,0.8);
+    }
+    .domain-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c8a800;
+      opacity: 0.7;
+    }
+
+    /* Founder name — bottom right */
+    .founder-credit {
+      position: absolute;
+      bottom: 36px;
+      right: 52px;
+      z-index: 6;
+      text-align: right;
+    }
+    .founder-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.02em;
+    }
+    .founder-title {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(200,168,0,0.6);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="glow"></div>
+    <div class="grain"></div>
+
+    <!-- Founder photo -->
+    <img class="photo" src="founder.png" alt="">
+    <div class="photo-mask"></div>
+    <div class="photo-mask-bottom"></div>
+
+    <!-- Left content -->
+    <div class="content">
+
+      <!-- Logo + wordmark -->
+      <div class="logo-row">
+        <svg width="54" height="54" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="96" height="96" rx="48" fill="#0a0a0a"/>
+          <circle cx="48" cy="48" r="46" stroke="#c8a800" stroke-width="1.5"/>
+          <line x1="26" y1="62" x2="26" y2="34" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="38" y1="68" x2="38" y2="28" stroke="#c8a800" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="50" y1="58" x2="50" y2="38" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="62" y1="68" x2="62" y2="28" stroke="#c8a800" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="74" y1="62" x2="74" y2="34" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+        </svg>
+        <div class="wordmark">
+          <div class="wordmark-line">
+            <span class="b">[</span><span class="a">arif</span><span class="ai">AI</span><span class="b">]</span>
+          </div>
+          <div class="wordmark-sub">solutions</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h1>Wise <em>AI.</em><br>Built for Your<br>Business.</h1>
+
+      <p class="sub">Custom AI applications &amp; automation<br>for Malaysian SMEs — built with care.</p>
+
+      <div class="domain">
+        <div class="domain-dot"></div>
+        arifaisolutions.com
+      </div>
+    </div>
+
+    <!-- Founder credit -->
+    <div class="founder-credit">
+      <div class="founder-name">Qamarul Arifin</div>
+      <div class="founder-title">Founder · arifAI Solutions</div>
+    </div>
+  </div>
+</body>
+</html>
