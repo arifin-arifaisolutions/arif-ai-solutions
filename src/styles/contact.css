@@ -117,7 +117,7 @@
 }
 .contact-alt a:hover { text-decoration: underline; }
 @media (max-width: 767px) {
-  .contact-form { grid-template-columns: 1fr; padding: 24px 0; }
+  .contact-form { grid-template-columns: 1fr; padding: 24px 0; border: none; box-shadow: none; }
 }
 
 /* Form success state */
