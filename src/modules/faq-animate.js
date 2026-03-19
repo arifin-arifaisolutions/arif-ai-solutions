@@ -5,7 +5,7 @@ export function initFaqAnimate () {
   const section = document.getElementById('faq')
   const list    = section?.querySelector('.faq-list')
   const items   = section ? [...section.querySelectorAll('.faq-item')] : []
-  if (!section || !items.length) return
+  if (!section || !list || !items.length) return
 
   // ── 1. Stagger entry ──────────────────────────────────────────
   const observer = new IntersectionObserver(([entry]) => {

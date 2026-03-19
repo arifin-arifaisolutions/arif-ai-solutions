@@ -48,9 +48,6 @@
   transform: translateY(24px);
   transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.25s ease, padding-left 0.25s ease;
 }
-.faq-item:nth-child(2) { transition-delay: 80ms; }
-.faq-item:nth-child(3) { transition-delay: 160ms; }
-.faq-item:nth-child(4) { transition-delay: 240ms; }
 
 .faq-item--visible {
   opacity: 1;
@@ -80,10 +77,5 @@
   .faq-item {
     transition-duration: 0.01ms !important;
     transform: none;
-  }
-  .faq-item:nth-child(2),
-  .faq-item:nth-child(3),
-  .faq-item:nth-child(4) {
-    transition-delay: 0ms;
   }
 }
