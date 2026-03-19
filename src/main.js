@@ -23,6 +23,7 @@ import { initMagnetic } from './modules/magnetic.js'
 import { initConstellation } from './modules/hero-constellation.js'
 import { initServicesExpand } from './modules/services-expand.js'
 import { initScrollAnimations } from './modules/scroll-animations.js'
+import { initFaqAnimate } from './modules/faq-animate.js'
 import './modules/i18n.js'
 
 // Init
@@ -34,3 +35,4 @@ initMagnetic()
 initConstellation()
 initServicesExpand()
 initScrollAnimations()
+initFaqAnimate()
