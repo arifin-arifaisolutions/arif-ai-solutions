@@ -18,13 +18,13 @@
   grid-template-columns: 1fr;
   gap: 0;
   padding: 52px 0;
-  border-bottom: 1px solid rgba(200,168,0,0.1);
+  border-bottom: 1px solid rgba(200,168,0,0.20);
   transition: border-color 0.3s;
   position: relative;
   cursor: default;
   overflow: hidden;
 }
-.pillar:first-child { border-top: 1px solid rgba(200,168,0,0.1); }
+.pillar:first-child { border-top: 1px solid rgba(200,168,0,0.20); }
 .pillar:hover { border-color: rgba(200,168,0,0.35); }
 
 /* Clip-path entrance overrides fade-in defaults */

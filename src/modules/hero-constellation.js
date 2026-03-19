@@ -46,7 +46,7 @@ export function initConstellation() {
           ctx.beginPath()
           ctx.moveTo(dots[i].x, dots[i].y)
           ctx.lineTo(dots[j].x, dots[j].y)
-          ctx.strokeStyle = `rgba(200,168,0,${(1 - dist / MAX_DIST) * 0.32})`
+          ctx.strokeStyle = `rgba(200,168,0,${(1 - dist / MAX_DIST) * 0.55})`
           ctx.lineWidth = 1.0
           ctx.stroke()
         }
@@ -56,7 +56,7 @@ export function initConstellation() {
     dots.forEach(d => {
       ctx.beginPath()
       ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
-      ctx.fillStyle = 'rgba(200,168,0,0.60)'
+      ctx.fillStyle = 'rgba(200,168,0,0.82)'
       ctx.fill()
     })
 
