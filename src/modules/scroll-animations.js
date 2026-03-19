@@ -13,27 +13,27 @@ export function initScrollAnimations() {
 
   gsap.registerPlugin(ScrollTrigger)
 
-  const section = document.querySelector('#how-we-work')
-  const steps   = gsap.utils.toArray('.timeline-step')
-  if (!section || !steps.length) return
+  const steps = gsap.utils.toArray('.timeline-step')
+  if (!steps.length) return
 
   // Start steps at reduced opacity
   gsap.set(steps, { opacity: 0.4 })
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top 70%',
-      end: 'bottom 30%',
-      scrub: true,
-    }
-  })
-
-  steps.forEach((step, i) => {
-    tl.to(step, {
-      opacity: 1,
-      onStart: () => step.classList.add('step-active'),
-      onReverseComplete: () => step.classList.remove('step-active'),
-    }, i * 0.25)
+  // Use per-step ScrollTrigger instances with onEnter/onLeaveBack
+  // to avoid callback-skipping that can occur with scrub: true timelines
+  steps.forEach((step) => {
+    ScrollTrigger.create({
+      trigger: step,
+      start: 'top 75%',
+      end: 'bottom 25%',
+      onEnter: () => {
+        gsap.to(step, { opacity: 1, duration: 0.4 })
+        step.classList.add('step-active')
+      },
+      onLeaveBack: () => {
+        gsap.to(step, { opacity: 0.4, duration: 0.4 })
+        step.classList.remove('step-active')
+      },
+    })
   })
 }
