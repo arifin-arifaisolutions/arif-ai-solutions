@@ -204,8 +204,9 @@
   transition: clip-path 0.6s cubic-bezier(0.22,1,0.36,1) var(--sw-delay, 0s);
 }
 .section-word.section-word-revealed { clip-path: inset(0 0% 0 0); }
-/* Italic text overhangs its computed box — add right padding to prevent clipping */
+/* Italic text overhangs its computed box — extend clip region for right overhang and descenders */
 em .section-word { padding-right: 5px; }
+em .section-word.section-word-revealed { clip-path: inset(0 -5px -6px 0); }
 
 .hero-sub {
   font-size: clamp(16px, 2.2vw, 18px);
