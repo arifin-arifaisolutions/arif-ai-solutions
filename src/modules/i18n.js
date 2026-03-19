@@ -95,7 +95,7 @@ const TRANSLATIONS = {
     'why.pillar1.desc':  'We ask "should you?" before "how do we?" \u2014 so you only invest in AI that actually fits your business.',
     'why.pillar2.title': 'Your partner, not your vendor',
     'why.pillar2.desc':  'From strategy to launch to long-term support, we measure success by your outcomes \u2014 not just deliverables.',
-    'why.pillar3.title': 'Built for SMEs, not enterprises',
+    'why.pillar3.title': 'Built for SMEs',
     'why.pillar3.desc':  'No bloated playbooks. We understand the constraints of real businesses and build accordingly.',
 
     'track.label':        'Track Record',
@@ -239,7 +239,7 @@ const TRANSLATIONS = {
     'why.pillar1.desc':  'Kami bertanya "patut ke?" sebelum "macam mana nak?" \u2014 supaya anda hanya melabur dalam AI yang benar-benar sesuai dengan perniagaan anda.',
     'why.pillar2.title': 'Rakan kongsi anda, bukan pembekal',
     'why.pillar2.desc':  'Dari strategi hingga pelancaran hingga sokongan jangka panjang, kami mengukur kejayaan berdasarkan hasil anda \u2014 bukan sekadar penghantaran.',
-    'why.pillar3.title': 'Dibina untuk PKS, bukan korporat',
+    'why.pillar3.title': 'Dibina untuk PKS',
     'why.pillar3.desc':  'Tiada panduan yang membosankan. Kami memahami kekangan perniagaan sebenar dan membina sewajarnya.',
 
     'track.label':        'Rekod Prestasi',
